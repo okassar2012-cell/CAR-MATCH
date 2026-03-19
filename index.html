@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="ar" dir="rtl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAR MATCH</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&amp;family=Orbitron:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        heading: ['Orbitron', 'sans-serif'],
+        body: ['Tajawal', 'sans-serif']
+      }
+    }
+  }
+}
+</script>
+  <style>
+html, body { height: 100%; margin: 0; }
+* { box-sizing: border-box; }
+.car-card { transition: all 0.3s ease; }
+.car-card:hover { transform: translateY(-6px); }
+.quiz-option { transition: all 0.2s ease; cursor: pointer; }
+.quiz-option:hover { transform: scale(1.03); }
+.quiz-option.selected { ring: 2px; }
+.fade-in { animation: fadeIn 0.5s ease forwards; opacity: 0; }
+@keyframes fadeIn { to { opacity: 1; } }
+.slide-up { animation: slideUp 0.6s ease forwards; opacity: 0; transform: translateY(30px); }
+@keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+.star-btn { transition: all 0.15s ease; }
+.star-btn:hover { transform: scale(1.2); }
+.hero-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); }
+.dark .hero-bg { background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #020617 100%); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+.glow { box-shadow: 0 0 30px rgba(234,179,8,0.15); }
+.heart-btn { transition: all 0.2s ease; }
+.heart-btn:hover { transform: scale(1.15); }
+.heart-btn.favorited { color: #ef4444; }
+</style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full bg-slate-50 dark:bg-slate-950 font-body text-slate-800 dark:text-slate-200 overflow-auto">
+  <div id="app" class="w-full min-h-full"><!-- Nav -->
+   <nav id="navbar" class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-yellow-500 flex items-center justify-center">
+       <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /><path d="M5 17H3v-4l2-5h9l4 5h3v4h-2" /><path d="M5 12h14" />
+       </svg>
+      </div><span id="nav-title" class="font-heading font-800 text-xl tracking-wider text-slate-900 dark:text-white">CAR MATCH</span>
+     </div>
+     <div class="flex items-center gap-2"><button onclick="scrollToSection('quiz-section')" class="hidden sm:block px-4 py-2 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" id="nav-quiz">الاختبار</button> <button onclick="scrollToSection('cars-section')" class="hidden sm:block px-4 py-2 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" id="nav-cars">السيارات</button> <button onclick="scrollToSection('comments-section')" class="hidden sm:block px-4 py-2 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" id="nav-comments">التعليقات</button> <select id="lang-toggle" onchange="toggleLang(this.value)" class="px-3 py-2 text-sm font-medium rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition border-0 cursor-pointer"> <option value="ar">العربية</option> <option value="en">English</option> </select> <button id="dark-toggle" onclick="toggleDark()" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"> <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i> <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i> </button>
+     </div>
+    </div>
+   </nav><!-- Hero -->
+   <section class="hero-bg py-20 px-4 text-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 20% 50%, #eab308 0%, transparent 50%), radial-gradient(circle at 80% 50%, #eab308 0%, transparent 50%);"></div>
+    <div class="relative z-10 max-w-3xl mx-auto slide-up">
+     <h1 id="hero-title" class="font-heading font-900 text-5xl sm:text-6xl text-white mb-4 tracking-wide">CAR MATCH</h1>
+     <p id="hero-subtitle" class="text-xl sm:text-2xl text-slate-300 mb-8">اكتشف السيارة المثالية اللي بتناسبك</p><button onclick="scrollToSection('quiz-section')" class="px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold text-lg rounded-2xl transition transform hover:scale-105 shadow-lg shadow-yellow-500/25" id="btn-start-quiz"> ابدأ الاختبار 🚗 </button>
+    </div>
+   </section><!-- Quiz Section -->
+   <section id="quiz-section" class="py-16 px-4">
+    <div class="max-w-3xl mx-auto">
+     <h2 id="quiz-heading" class="font-heading font-700 text-3xl text-center mb-2">خلينا نلاقيلك سيارتك</h2>
+     <p class="text-center text-slate-500 dark:text-slate-400 mb-10" id="quiz-desc">أجب على الأسئلة التالية وسنختار لك أفضل سيارة</p>
+     <div id="quiz-container"><!-- Quiz renders here -->
+     </div>
+     <div id="quiz-result" class="hidden"></div>
+    </div>
+   </section><!-- Cars Section -->
+   <section id="cars-section" class="py-16 px-4 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto">
+     <h2 class="font-heading font-700 text-3xl text-center mb-6" id="cars-heading">استكشف جميع السيارات</h2><!-- Search Bar -->
+     <div class="mb-8 flex justify-center"><input id="search-input" type="text" placeholder="ابحث عن سيارة..." oninput="filterCars(currentFilter)" class="w-full sm:w-96 px-5 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition">
+     </div><!-- Filters -->
+     <div class="flex flex-wrap gap-3 justify-center mb-10"><button onclick="filterCars('all')" class="filter-btn active px-5 py-2.5 rounded-xl text-sm font-medium bg-yellow-500 text-slate-900 transition" data-filter="all" id="filter-all">الكل</button> <button onclick="filterCars('اقتصادية')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="اقتصادية" id="filter-economy">اقتصادية</button> <button onclick="filterCars('سيدان')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="سيدان" id="filter-sedan">سيدان</button> <button onclick="filterCars('رياضية')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="رياضية" id="filter-sports">رياضية</button> <button onclick="filterCars('SUV')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="SUV" id="filter-suv">SUV</button> <button onclick="filterCars('فاخرة')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="فاخرة" id="filter-luxury">فاخرة</button> <button onclick="filterCars('عائلية')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="عائلية" id="filter-family">عائلية</button> <button onclick="filterCars('بيك أب')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="بيك أب" id="filter-pickup">بيك أب</button>
+     </div><!-- Price Range -->
+     <div class="flex flex-wrap gap-3 justify-center mb-10"><span class="text-sm text-slate-500 self-center" id="budget-label">الميزانية:</span> <button onclick="filterPrice('all')" class="price-btn active px-4 py-2 rounded-lg text-xs font-medium bg-yellow-500 text-slate-900 transition" data-price="all" id="price-all">الكل</button> <button onclick="filterPrice('low')" class="price-btn px-4 py-2 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 transition" data-price="low" id="price-low">أقل من $25K</button> <button onclick="filterPrice('mid')" class="price-btn px-4 py-2 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 transition" data-price="mid" id="price-mid">$25K - $60K</button> <button onclick="filterPrice('high')" class="price-btn px-4 py-2 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 transition" data-price="high" id="price-high">أكثر من $60K</button>
+     </div>
+     <div id="cars-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"><!-- Cars render here -->
+     </div>
+     <p id="no-cars" class="hidden text-center text-slate-400 py-12 text-lg">لا توجد سيارات تطابق الفلتر المحدد</p>
+    </div>
+   </section><!-- Car Detail Modal -->
+   <div id="car-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full max-h-[90%] overflow-auto p-6 relative"><button onclick="closeModal()" class="absolute top-4 left-4 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-red-100 dark:hover:bg-red-900 transition"> <i data-lucide="x" class="w-4 h-4"></i> </button>
+     <div id="modal-content"></div>
+    </div>
+   </div><!-- Comments Section -->
+   <section id="comments-section" class="py-16 px-4">
+    <div class="max-w-3xl mx-auto">
+     <h2 class="font-heading font-700 text-3xl text-center mb-10" id="comments-heading">التعليقات والتقييمات</h2><!-- Add Comment -->
+     <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 mb-8 border border-slate-200 dark:border-slate-800">
+      <h3 class="font-bold text-lg mb-4" id="add-comment-title">أضف تعليقك</h3>
+      <div class="space-y-4"><input id="comment-name" type="text" placeholder="اسمك" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition" maxlength="50"> <textarea id="comment-text" placeholder="اكتب تعليقك هنا..." rows="3" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition resize-none" maxlength="500"></textarea>
+       <div class="flex items-center gap-2"><span class="text-sm text-slate-500" id="rating-label">تقييمك:</span>
+        <div id="comment-stars" class="flex gap-1"><button onclick="setCommentRating(1)" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500"><i data-lucide="star" class="w-6 h-6"></i></button> <button onclick="setCommentRating(2)" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500"><i data-lucide="star" class="w-6 h-6"></i></button> <button onclick="setCommentRating(3)" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500"><i data-lucide="star" class="w-6 h-6"></i></button> <button onclick="setCommentRating(4)" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500"><i data-lucide="star" class="w-6 h-6"></i></button> <button onclick="setCommentRating(5)" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500"><i data-lucide="star" class="w-6 h-6"></i></button>
+        </div>
+       </div><button id="submit-comment-btn" onclick="submitComment()" class="w-full py-3 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold rounded-xl transition"> إرسال التعليق </button>
+       <div id="comment-msg" class="hidden text-center text-sm py-2 rounded-lg"></div>
+      </div>
+     </div><!-- Comments List -->
+     <div id="comments-list" class="space-y-4">
+      <p id="no-comments" class="text-center text-slate-400 py-8">لا توجد تعليقات بعد. كن أول من يعلق!</p>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-8 px-4 bg-slate-900 dark:bg-slate-950 text-center">
+    <p class="text-slate-400 text-sm">CAR MATCH © 2025 — اكتشف سيارتك المثالية</p>
+   </footer>
+  </div>
+  <script>
+// ==================== LANGUAGE ====================
+let currentLang = 'ar';
+const translations = {
+  ar: {
+    quiz: 'الاختبار',
+    cars: 'السيارات',
+    comments: 'التعليقات',
+    quizDescShort: 'أجب على الأسئلة التالية وسنختار لك أفضل سيارة',
+    quizHeading: 'خلينا نلاقيلك سيارتك',
+    carsHeading: 'استكشف جميع السيارات',
+    searchPlaceholder: 'ابحث عن سيارة...',
+    budgetLabel: 'الميزانية:',
+    noMatch: 'لا توجد سيارات تطابق الفلتر المحدد',
+    commentsHeading: 'التعليقات والتقييمات',
+    addCommentTitle: 'أضف تعليقك',
+    ratingLabel: 'تقييمك:',
+    submitBtn: 'إرسال التعليق',
+    noComments: 'لا توجد تعليقات بعد. كن أول من يعلق!',
+    startQuiz: 'ابدأ الاختبار 🚗',
+    filterAll: 'الكل',
+    filterEconomy: 'اقتصادية',
+    filterSedan: 'سيدان',
+    filterSports: 'رياضية',
+    filterSUV: 'SUV',
+    filterLuxury: 'فاخرة',
+    filterFamily: 'عائلية',
+    filterPickup: 'بيك أب',
+    priceAll: 'الكل',
+    priceLow: 'أقل من $25K',
+    priceMid: '$25K - $60K',
+    priceHigh: 'أكثر من $60K',
+    q1: 'كم ميزانيتك؟',
+    q1o1: 'أقل من $20,000',
+    q1o2: '$20,000 - $50,000',
+    q1o3: '$50,000 - $100,000',
+    q1o4: 'أكثر من $100,000',
+    q2: 'شو نوع السيارة يلي بتحبه؟',
+    q3: 'بدك ياها للمدينة أو للسفر؟',
+    q3o1: 'داخل المدينة',
+    q3o2: 'سفر ورحلات',
+    q3o3: 'الاثنين',
+    q4: 'شو نوع الوقود يلي بتفضله؟',
+    q4o1: 'بنزين',
+    q4o2: 'ديزل',
+    q4o3: 'كهربائية',
+    q4o4: 'هجين',
+    q4o5: 'مو مهم',
+    back: '← رجوع',
+    retakeQuiz: 'أعد الاختبار 🔄',
+    bestForYou: 'الأفضل لك',
+    price: 'السعر',
+    power: 'القوة',
+    rating: 'التقييم',
+    fuel: 'الوقود:',
+    seats: 'المقاعد:',
+    use: 'الاستخدام:',
+    type: 'النوع:',
+    year: 'السنة:',
+    hp: 'الحصان:',
+    fullDetails: 'تفاصيل شاملة',
+    brand: 'ماركة:',
+    features: 'المميزات',
+    rateThisCar: 'قيّم هذه السيارة',
+    thanks: 'شكراً! تقييمك:',
+    error: '❌ حدث خطأ، حاول مرة أخرى',
+    fillForm: 'الرجاء تعبئة الاسم والتعليق',
+    selectRating: 'الرجاء اختيار تقييم',
+    limitReached: '⚠️ تم الوصول للحد الأقصى من التعليقات',
+    saving: 'جاري الإرسال...',
+    success: '✅ تم إرسال تعليقك بنجاح!',
+    noFavorites: 'لا توجد مفضلات بعد',
+    favorites: 'المفضلات',
+    savingFav: 'جاري الحفظ...',
+  },
+  en: {
+    quiz: 'Quiz',
+    cars: 'Cars',
+    comments: 'Comments',
+    quizDescShort: 'Answer the following questions and we\'ll find the perfect car for you',
+    quizHeading: 'Let\'s find your perfect match',
+    carsHeading: 'Explore All Cars',
+    searchPlaceholder: 'Search for a car...',
+    budgetLabel: 'Budget:',
+    noMatch: 'No cars match the selected filters',
+    commentsHeading: 'Comments & Ratings',
+    addCommentTitle: 'Add Your Comment',
+    ratingLabel: 'Your Rating:',
+    submitBtn: 'Submit Comment',
+    noComments: 'No comments yet. Be the first to comment!',
+    startQuiz: 'Start Quiz 🚗',
+    filterAll: 'All',
+    filterEconomy: 'Economy',
+    filterSedan: 'Sedan',
+    filterSports: 'Sports',
+    filterSUV: 'SUV',
+    filterLuxury: 'Luxury',
+    filterFamily: 'Family',
+    filterPickup: 'Pickup',
+    priceAll: 'All',
+    priceLow: 'Under $25K',
+    priceMid: '$25K - $60K',
+    priceHigh: 'Over $60K',
+    q1: 'What\'s your budget?',
+    q1o1: 'Under $20,000',
+    q1o2: '$20,000 - $50,000',
+    q1o3: '$50,000 - $100,000',
+    q1o4: 'Over $100,000',
+    q2: 'What type of car do you like?',
+    q3: 'City driving or road trips?',
+    q3o1: 'City driving',
+    q3o2: 'Road trips',
+    q3o3: 'Both',
+    q4: 'What fuel type do you prefer?',
+    q4o1: 'Gasoline',
+    q4o2: 'Diesel',
+    q4o3: 'Electric',
+    q4o4: 'Hybrid',
+    q4o5: 'Any',
+    back: 'Back ←',
+    retakeQuiz: 'Retake Quiz 🔄',
+    bestForYou: 'Best For You',
+    price: 'Price',
+    power: 'Power',
+    rating: 'Rating',
+    fuel: 'Fuel:',
+    seats: 'Seats:',
+    use: 'Usage:',
+    type: 'Type:',
+    year: 'Year:',
+    hp: 'Horsepower:',
+    fullDetails: 'Full Details',
+    brand: 'Brand:',
+    features: 'Features',
+    rateThisCar: 'Rate This Car',
+    thanks: 'Thanks! Your Rating:',
+    error: '❌ Error, please try again',
+    fillForm: 'Please fill in your name and comment',
+    selectRating: 'Please select a rating',
+    limitReached: '⚠️ Maximum comments reached',
+    saving: 'Submitting...',
+    success: '✅ Comment submitted successfully!',
+    noFavorites: 'No favorites yet',
+    favorites: 'Favorites',
+    savingFav: 'Saving...',
+  }
+};
+
+function t(key) {
+  return translations[currentLang][key] || translations['ar'][key];
+}
+
+function toggleLang(lang) {
+  currentLang = lang;
+  const isRTL = lang === 'ar';
+  document.documentElement.lang = lang;
+  document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+  document.body.style.textAlign = isRTL ? 'right' : 'left';
+  updateLanguageUI();
+  renderQuiz();
+  renderCars();
+  renderComments();
+  lucide.createIcons();
+}
+
+function updateLanguageUI() {
+  document.getElementById('nav-quiz').textContent = t('quiz');
+  document.getElementById('nav-cars').textContent = t('cars');
+  document.getElementById('nav-comments').textContent = t('comments');
+  document.getElementById('btn-start-quiz').textContent = t('startQuiz');
+  document.getElementById('quiz-desc').textContent = t('quizDescShort');
+  document.getElementById('quiz-heading').textContent = t('quizHeading');
+  document.getElementById('cars-heading').textContent = t('carsHeading');
+  document.getElementById('search-input').placeholder = t('searchPlaceholder');
+  document.getElementById('budget-label').textContent = t('budgetLabel');
+  document.getElementById('filter-all').textContent = t('filterAll');
+  document.getElementById('filter-economy').textContent = t('filterEconomy');
+  document.getElementById('filter-sedan').textContent = t('filterSedan');
+  document.getElementById('filter-sports').textContent = t('filterSports');
+  document.getElementById('filter-suv').textContent = t('filterSUV');
+  document.getElementById('filter-luxury').textContent = t('filterLuxury');
+  document.getElementById('filter-family').textContent = t('filterFamily');
+  document.getElementById('filter-pickup').textContent = t('filterPickup');
+  document.getElementById('price-all').textContent = t('priceAll');
+  document.getElementById('price-low').textContent = t('priceLow');
+  document.getElementById('price-mid').textContent = t('priceMid');
+  document.getElementById('price-high').textContent = t('priceHigh');
+  document.getElementById('comments-heading').textContent = t('commentsHeading');
+  document.getElementById('add-comment-title').textContent = t('addCommentTitle');
+  document.getElementById('rating-label').textContent = t('ratingLabel');
+  document.getElementById('submit-comment-btn').textContent = t('submitBtn');
+}
+
+// ==================== CAR DATABASE ====================
+const CARS = [
+  // Kia
+  { id:"kia-picanto", brand:"كيا", name:"Picanto", type:"اقتصادية", price:14000, fuel:"بنزين", year:2024, hp:67, seats:5, use:"مدينة", emoji:"🚗", color:"#e11d48", features:["Economy fuel","Compact","Easy parking","Low maintenance"] },
+  { id:"kia-cerato", brand:"كيا", name:"Cerato", type:"سيدان", price:22000, fuel:"بنزين", year:2024, hp:147, seats:5, use:"مدينة", emoji:"🚙", color:"#3b82f6", features:["Modern design","Touchscreen","High safety","Comfortable"] },
+  { id:"kia-sportage", brand:"كيا", name:"Sportage", type:"SUV", price:32000, fuel:"بنزين", year:2024, hp:187, seats:5, use:"سفر", emoji:"🚙", color:"#059669", features:["4WD","Panoramic display","Spacious","Modern tech"] },
+  { id:"kia-carnival", brand:"كيا", name:"Carnival", type:"عائلية", price:38000, fuel:"بنزين", year:2024, hp:290, seats:7, use:"سفر", emoji:"🚐", color:"#7c3aed", features:["7 seats","Very spacious","Comfortable","Rear entertainment"] },
+  { id:"kia-stinger", brand:"كيا", name:"Stinger", type:"رياضية", price:52000, fuel:"بنزين", year:2024, hp:368, seats:5, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["V6 engine","Sports design","High speed","Powerful"] },
+  // Hyundai
+  { id:"hyundai-accent", brand:"هيونداي", name:"Accent", type:"اقتصادية", price:17000, fuel:"بنزين", year:2024, hp:120, seats:5, use:"مدينة", emoji:"🚗", color:"#0891b2", features:["Economic","Practical","Reliable","Low maintenance"] },
+  { id:"hyundai-elantra", brand:"هيونداي", name:"Elantra", type:"سيدان", price:24000, fuel:"بنزين", year:2024, hp:147, seats:5, use:"مدينة", emoji:"🚙", color:"#4f46e5", features:["Bold design","Smart tech","Comfortable","Advanced safety"] },
+  { id:"hyundai-tucson", brand:"هيونداي", name:"Tucson", type:"SUV", price:30000, fuel:"بنزين", year:2024, hp:187, seats:5, use:"سفر", emoji:"🚙", color:"#15803d", features:["Unique design","4WD","Large display","Wide space"] },
+  { id:"hyundai-palisade", brand:"هيونداي", name:"Palisade", type:"SUV", price:50000, fuel:"بنزين", year:2024, hp:291, seats:7, use:"سفر", emoji:"🚙", color:"#1e40af", features:["Luxury","7 seats","Very comfortable","Advanced tech"] },
+  { id:"hyundai-sonata", brand:"هيونداي", name:"Sonata", type:"سيدان", price:28000, fuel:"بنزين", year:2024, hp:191, seats:5, use:"مدينة", emoji:"🚗", color:"#9333ea", features:["Elegant design","Powerful engine","High comfort","Modern tech"] },
+  // Toyota
+  { id:"toyota-yaris", brand:"تويوتا", name:"Yaris", type:"اقتصادية", price:18000, fuel:"بنزين", year:2024, hp:107, seats:5, use:"مدينة", emoji:"🚗", color:"#f59e0b", features:["Very reliable","Economic","Durable","Parts available"] },
+  { id:"toyota-corolla", brand:"تويوتا", name:"Corolla", type:"سيدان", price:23000, fuel:"بنزين", year:2024, hp:169, seats:5, use:"مدينة", emoji:"🚙", color:"#2563eb", features:["Best seller","Reliable","Practical","Economic"] },
+  { id:"toyota-camry", brand:"تويوتا", name:"Camry", type:"سيدان", price:30000, fuel:"بنزين", year:2024, hp:203, seats:5, use:"سفر", emoji:"🚗", color:"#0d9488", features:["Excellent comfort","Powerful engine","Luxury","Reliable"] },
+  { id:"toyota-rav4", brand:"تويوتا", name:"RAV4", type:"SUV", price:33000, fuel:"بنزين", year:2024, hp:203, seats:5, use:"سفر", emoji:"🚙", color:"#65a30d", features:["Practical","4WD","Spacious","Durable"] },
+  { id:"toyota-landcruiser", brand:"تويوتا", name:"Land Cruiser", type:"SUV", price:88000, fuel:"بنزين", year:2024, hp:409, seats:7, use:"سفر", emoji:"🚙", color:"#a16207", features:["Desert King","Legendary durability","Luxury","4WD"] },
+  { id:"toyota-hilux", brand:"تويوتا", name:"Hilux", type:"بيك أب", price:35000, fuel:"ديزل", year:2024, hp:204, seats:5, use:"سفر", emoji:"🛻", color:"#78350f", features:["Durable","Practical","4WD","High towing"] },
+  { id:"toyota-supra", brand:"تويوتا", name:"Supra", type:"رياضية", price:56000, fuel:"بنزين", year:2024, hp:382, seats:2, use:"مدينة", emoji:"🏎️", color:"#ef4444", features:["BMW engine","Super speed","Iconic design","Sports performance"] },
+  // Mercedes
+  { id:"merc-a", brand:"مرسيدس", name:"A-Class", type:"سيدان", price:38000, fuel:"بنزين", year:2024, hp:188, seats:5, use:"مدينة", emoji:"🚗", color:"#374151", features:["Compact luxury","MBUX tech","Elegant design","High safety"] },
+  { id:"merc-c", brand:"مرسيدس", name:"C-Class", type:"فاخرة", price:48000, fuel:"بنزين", year:2024, hp:255, seats:5, use:"مدينة", emoji:"🚗", color:"#1f2937", features:["High luxury","Excellent performance","Advanced tech","Supreme comfort"] },
+  { id:"merc-e", brand:"مرسيدس", name:"E-Class", type:"فاخرة", price:68000, fuel:"بنزين", year:2024, hp:295, seats:5, use:"سفر", emoji:"🚗", color:"#111827", features:["Total luxury","Partial autonomous","Best cabin","Complete silence"] },
+  { id:"merc-s", brand:"مرسيدس", name:"S-Class", type:"فاخرة", price:115000, fuel:"بنزين", year:2024, hp:429, seats:5, use:"سفر", emoji:"🚗", color:"#030712", features:["Finest car","Future tech","Unmatched comfort","Massage seats"] },
+  { id:"merc-gle", brand:"مرسيدس", name:"GLE", type:"SUV", price:62000, fuel:"بنزين", year:2024, hp:255, seats:5, use:"سفر", emoji:"🚙", color:"#1e3a5f", features:["Luxury SUV","Spacious","4WD","Air suspension"] },
+  { id:"merc-amg-gt", brand:"مرسيدس", name:"AMG GT", type:"رياضية", price:130000, fuel:"بنزين", year:2024, hp:577, seats:2, use:"مدينة", emoji:"🏎️", color:"#991b1b", features:["Extreme performance","V8 engine","Amazing sound","Sports luxury"] },
+  // BMW
+  { id:"bmw-3", brand:"بي إم دبليو", name:"3 Series", type:"سيدان", price:45000, fuel:"بنزين", year:2024, hp:255, seats:5, use:"مدينة", emoji:"🚗", color:"#1d4ed8", features:["Driving pleasure","Sports performance","Modern tech","Elegant design"] },
+  { id:"bmw-5", brand:"بي إم دبليو", name:"5 Series", type:"فاخرة", price:58000, fuel:"بنزين", year:2024, hp:255, seats:5, use:"سفر", emoji:"🚗", color:"#1e3a5f", features:["Sports luxury","High comfort","Advanced tech","Excellent performance"] },
+  { id:"bmw-x5", brand:"بي إم دبليو", name:"X5", type:"SUV", price:65000, fuel:"بنزين", year:2024, hp:335, seats:5, use:"سفر", emoji:"🚙", color:"#0f172a", features:["Sports SUV","4WD","Spacious","Powerful"] },
+  { id:"bmw-m4", brand:"بي إم دبليو", name:"M4", type:"رياضية", price:78000, fuel:"بنزين", year:2024, hp:473, seats:4, use:"مدينة", emoji:"🏎️", color:"#15803d", features:["M performance","6-cylinder engine","Drift capable","Sports sound"] },
+  // Nissan
+  { id:"nissan-sunny", brand:"نيسان", name:"Sunny", type:"اقتصادية", price:16000, fuel:"بنزين", year:2024, hp:118, seats:5, use:"مدينة", emoji:"🚗", color:"#ca8a04", features:["Economic","Practical","Reliable","Great price"] },
+  { id:"nissan-altima", brand:"نيسان", name:"Altima", type:"سيدان", price:27000, fuel:"بنزين", year:2024, hp:188, seats:5, use:"مدينة", emoji:"🚙", color:"#b91c1c", features:["Bold design","Comfortable","Modern tech","Good performance"] },
+  { id:"nissan-patrol", brand:"نيسان", name:"Patrol", type:"SUV", price:70000, fuel:"بنزين", year:2024, hp:400, seats:7, use:"سفر", emoji:"🚙", color:"#44403c", features:["Powerful","7 seats","Luxury","Desert legend"] },
+  { id:"nissan-gtr", brand:"نيسان", name:"GT-R", type:"رياضية", price:120000, fuel:"بنزين", year:2024, hp:565, seats:4, use:"مدينة", emoji:"🏎️", color:"#6b7280", features:["Godzilla","4WD","Super speed","Japanese icon"] },
+  // Honda
+  { id:"honda-civic", brand:"هوندا", name:"Civic", type:"سيدان", price:25000, fuel:"بنزين", year:2024, hp:180, seats:5, use:"مدينة", emoji:"🚗", color:"#0369a1", features:["Sports practical","Reliable","Economic","Fun to drive"] },
+  { id:"honda-accord", brand:"هوندا", name:"Accord", type:"سيدان", price:30000, fuel:"هجين", year:2024, hp:204, seats:5, use:"سفر", emoji:"🚗", color:"#4338ca", features:["Hybrid","Spacious","Comfortable","Modern tech"] },
+  { id:"honda-crv", brand:"هوندا", name:"CR-V", type:"SUV", price:34000, fuel:"بنزين", year:2024, hp:190, seats:5, use:"سفر", emoji:"🚙", color:"#0e7490", features:["Practical","Spacious","Reliable","Economic"] },
+  // Ford
+  { id:"ford-f150", brand:"فورد", name:"F-150", type:"بيك أب", price:40000, fuel:"بنزين", year:2024, hp:400, seats:5, use:"سفر", emoji:"🛻", color:"#1e40af", features:["Best seller in US","Huge towing","Durable","Practical"] },
+  { id:"ford-mustang", brand:"فورد", name:"Mustang", type:"رياضية", price:55000, fuel:"بنزين", year:2024, hp:480, seats:4, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["American icon","V8 engine","Legendary sound","Classic design"] },
+  { id:"ford-explorer", brand:"فورد", name:"Explorer", type:"SUV", price:42000, fuel:"بنزين", year:2024, hp:300, seats:7, use:"سفر", emoji:"🚙", color:"#166534", features:["7 seats","Spacious","4WD","Great family car"] },
+  // Audi
+  { id:"audi-a4", brand:"أودي", name:"A4", type:"فاخرة", price:45000, fuel:"بنزين", year:2024, hp:261, seats:5, use:"مدينة", emoji:"🚗", color:"#1f2937", features:["Quattro 4WD","German luxury","Advanced tech","Great performance"] },
+  { id:"audi-q7", brand:"أودي", name:"Q7", type:"SUV", price:60000, fuel:"بنزين", year:2024, hp:261, seats:7, use:"سفر", emoji:"🚙", color:"#374151", features:["7 seats","Luxury","4WD","Wide space"] },
+  { id:"audi-rs7", brand:"أودي", name:"RS7", type:"رياضية", price:125000, fuel:"بنزين", year:2024, hp:621, seats:4, use:"مدينة", emoji:"🏎️", color:"#0f172a", features:["Extreme performance","Aggressive design","Sports luxury","Quattro"] },
+  // Porsche
+  { id:"porsche-911", brand:"بورش", name:"911", type:"رياضية", price:115000, fuel:"بنزين", year:2024, hp:379, seats:4, use:"مدينة", emoji:"🏎️", color:"#eab308", features:["Sports icon","Timeless design","Amazing performance","Rear engine"] },
+  { id:"porsche-cayenne", brand:"بورش", name:"Cayenne", type:"SUV", price:75000, fuel:"بنزين", year:2024, hp:348, seats:5, use:"سفر", emoji:"🚙", color:"#1c1917", features:["Sports SUV Luxury","Porsche performance","Luxury","4WD"] },
+  // Lexus
+  { id:"lexus-es", brand:"لكزس", name:"ES", type:"فاخرة", price:44000, fuel:"هجين", year:2024, hp:215, seats:5, use:"مدينة", emoji:"🚗", color:"#1e293b", features:["Complete silence","Japanese luxury","Reliable","Hybrid"] },
+  { id:"lexus-lx", brand:"لكزس", name:"LX", type:"SUV", price:92000, fuel:"بنزين", year:2024, hp:409, seats:7, use:"سفر", emoji:"🚙", color:"#292524", features:["Desert luxury","7 seats","Land Cruiser base","High durability"] },
+  // Chevrolet
+  { id:"chevy-tahoe", brand:"شيفروليه", name:"Tahoe", type:"SUV", price:55000, fuel:"بنزين", year:2024, hp:355, seats:7, use:"سفر", emoji:"🚙", color:"#1e3a5f", features:["American","Very spacious","7 seats","Powerful"] },
+  { id:"chevy-camaro", brand:"شيفروليه", name:"Camaro", type:"رياضية", price:45000, fuel:"بنزين", year:2024, hp:455, seats:4, use:"مدينة", emoji:"🏎️", color:"#fbbf24", features:["American muscle","V8 engine","Awesome sound","Aggressive design"] },
+  // Volkswagen
+  { id:"vw-golf", brand:"فولكسفاجن", name:"Golf", type:"اقتصادية", price:28000, fuel:"بنزين", year:2024, hp:228, seats:5, use:"مدينة", emoji:"🚗", color:"#1d4ed8", features:["Legendary hatchback","Practical","Fun","German"] },
+  { id:"vw-tiguan", brand:"فولكسفاجن", name:"Tiguan", type:"SUV", price:32000, fuel:"بنزين", year:2024, hp:184, seats:5, use:"سفر", emoji:"🚙", color:"#0f766e", features:["Practical","Spacious","Reliable","German"] },
+  // Range Rover
+  { id:"rr-sport", brand:"رينج روفر", name:"Sport", type:"SUV", price:85000, fuel:"بنزين", year:2024, hp:395, seats:5, use:"سفر", emoji:"🚙", color:"#1c1917", features:["British luxury","Sports performance","Iconic design","Off-road capable"] },
+  // Tesla
+  { id:"tesla-3", brand:"تسلا", name:"Model 3", type:"سيدان", price:42000, fuel:"كهربائية", year:2024, hp:283, seats:5, use:"مدينة", emoji:"⚡", color:"#dc2626", features:["Electric","Autonomous driving","Huge display","Zero emissions"] },
+  { id:"tesla-y", brand:"تسلا", name:"Model Y", type:"SUV", price:50000, fuel:"كهربائية", year:2024, hp:384, seats:5, use:"سفر", emoji:"⚡", color:"#2563eb", features:["Electric","Spacious","Autonomous","Practical"] },
+];
+
+// ==================== QUIZ ====================
+const getQuizQuestions = () => [
+  { q: t('q1'), options: [
+    { text: t('q1o1'), emoji: "💰", value: "low" },
+    { text: t('q1o2'), emoji: "💵", value: "mid" },
+    { text: t('q1o3'), emoji: "💎", value: "high" },
+    { text: t('q1o4'), emoji: "👑", value: "ultra" },
+  ]},
+  { q: t('q2'), options: [
+    { text: t('filterEconomy'), emoji: "🚗", value: "اقتصادية" },
+    { text: t('filterSedan'), emoji: "🚙", value: "سيدان" },
+    { text: "SUV", emoji: "🚙", value: "SUV" },
+    { text: t('filterSports'), emoji: "🏎️", value: "رياضية" },
+    { text: t('filterLuxury'), emoji: "✨", value: "فاخرة" },
+    { text: t('filterFamily'), emoji: "👨‍👩‍👧‍👦", value: "عائلية" },
+    { text: t('filterPickup'), emoji: "🛻", value: "بيك أب" },
+  ]},
+  { q: t('q3'), options: [
+    { text: t('q3o1'), emoji: "🏙️", value: "مدينة" },
+    { text: t('q3o2'), emoji: "🛣️", value: "سفر" },
+    { text: t('q3o3'), emoji: "🔄", value: "both" },
+  ]},
+  { q: t('q4'), options: [
+    { text: t('q4o1'), emoji: "⛽", value: "بنزين" },
+    { text: t('q4o2'), emoji: "🛢️", value: "ديزل" },
+    { text: t('q4o3'), emoji: "⚡", value: "كهربائية" },
+    { text: t('q4o4'), emoji: "🔋", value: "هجين" },
+    { text: t('q4o5'), emoji: "🤷", value: "any" },
+  ]},
+];
+
+let quizStep = 0;
+let quizAnswers = {};
+let commentRating = 0;
+let currentFilter = 'all';
+let currentPrice = 'all';
+let allData = [];
+let favorites = new Set();
+
+// ==================== DARK MODE ====================
+function toggleDark() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('dark', document.documentElement.classList.contains('dark'));
+  lucide.createIcons();
+}
+if (localStorage.getItem('dark') === 'true') document.documentElement.classList.add('dark');
+
+// ==================== SCROLL ====================
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+// ==================== QUIZ RENDER ====================
+function renderQuiz() {
+  const container = document.getElementById('quiz-container');
+  const result = document.getElementById('quiz-result');
+  result.classList.add('hidden');
+  
+  const questions = getQuizQuestions();
+  
+  if (quizStep >= questions.length) {
+    container.innerHTML = '';
+    showQuizResult();
+    return;
+  }
+  
+  const q = questions[quizStep];
+  const progress = ((quizStep) / questions.length) * 100;
+  
+  container.innerHTML = `
+    <div class="fade-in">
+      <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 mb-6">
+        <div class="bg-yellow-500 h-2 rounded-full transition-all duration-500" style="width:${progress}%"></div>
+      </div>
+      <p class="text-sm text-slate-400 mb-2">${currentLang === 'ar' ? `سؤال ${quizStep + 1} من ${questions.length}` : `Question ${quizStep + 1} of ${questions.length}`}</p>
+      <h3 class="text-2xl font-bold mb-6">${q.q}</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-${q.options.length > 4 ? '3' : '2'} gap-3">
+        ${q.options.map((o, i) => `
+          <button onclick="answerQuiz(${quizStep}, '${o.value}')" class="quiz-option p-4 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 hover:border-yellow-500 text-center">
+            <span class="text-3xl block mb-2">${o.emoji}</span>
+            <span class="font-medium text-sm">${o.text}</span>
+          </button>
+        `).join('')}
+      </div>
+      ${quizStep > 0 ? `<button onclick="quizStep--;renderQuiz()" class="mt-4 text-sm text-slate-400 hover:text-yellow-500 transition">${t('back')}</button>` : ''}
+    </div>
+  `;
+}
+
+function answerQuiz(step, value) {
+  quizAnswers[step] = value;
+  quizStep++;
+  renderQuiz();
+}
+
+function showQuizResult() {
+  const budget = quizAnswers[0];
+  const type = quizAnswers[1];
+  const use = quizAnswers[2];
+  const fuel = quizAnswers[3];
+
+  let filtered = CARS.filter(c => {
+    let match = true;
+    if (budget === 'low' && c.price > 22000) match = false;
+    if (budget === 'mid' && (c.price < 20000 || c.price > 55000)) match = false;
+    if (budget === 'high' && (c.price < 50000 || c.price > 100000)) match = false;
+    if (budget === 'ultra' && c.price < 90000) match = false;
+    if (c.type !== type && type !== 'عائلية') match = false;
+    if (type === 'عائلية' && c.seats < 7) match = false;
+    if (use !== 'both' && c.use !== use) match = false;
+    if (fuel !== 'any' && c.fuel !== fuel) match = false;
+    return match;
+  });
+
+  if (filtered.length === 0) {
+    filtered = CARS.filter(c => {
+      if (budget === 'low') return c.price <= 25000;
+      if (budget === 'mid') return c.price >= 20000 && c.price <= 55000;
+      if (budget === 'high') return c.price >= 45000 && c.price <= 100000;
+      if (budget === 'ultra') return c.price >= 80000;
+      return true;
+    }).filter(c => c.type === type || type === 'عائلية' && c.seats >= 7);
+  }
+  if (filtered.length === 0) {
+    filtered = CARS.filter(c => {
+      if (budget === 'low') return c.price <= 30000;
+      if (budget === 'mid') return c.price <= 60000;
+      if (budget === 'high') return c.price <= 110000;
+      return true;
+    }).slice(0, 3);
+  }
+
+  const top = filtered.slice(0, 3);
+  const resultDiv = document.getElementById('quiz-result');
+  resultDiv.classList.remove('hidden');
+  
+  resultDiv.innerHTML = `
+    <div class="fade-in">
+      <div class="text-center mb-8">
+        <span class="text-6xl block mb-4">🎉</span>
+        <h3 class="text-2xl font-bold mb-2">${currentLang === 'ar' ? 'نتيجتك جاهزة!' : 'Your Result is Ready!'}</h3>
+        <p class="text-slate-400">${currentLang === 'ar' ? 'بناءً على إجاباتك، هذه أفضل السيارات الك:' : 'Based on your answers, here are the best cars for you:'}</p>
+      </div>
+      <div class="space-y-4">
+        ${top.map((c, i) => `
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border-2 ${i === 0 ? 'border-yellow-500 glow' : 'border-slate-200 dark:border-slate-700'} cursor-pointer hover:border-yellow-500 transition" onclick="openModal('${c.id}')">
+            <div class="flex items-center gap-4">
+              <span class="text-4xl">${c.emoji}</span>
+              <div class="flex-1">
+                <div class="flex items-center gap-2">
+                  ${i === 0 ? `<span class="text-xs bg-yellow-500 text-slate-900 px-2 py-0.5 rounded-full font-bold">${t('bestForYou')}</span>` : ''}
+                </div>
+                <h4 class="font-bold text-lg">${c.brand} ${c.name}</h4>
+                <p class="text-sm text-slate-400">${c.type} • ${c.hp} ${currentLang === 'ar' ? 'حصان' : 'HP'} • ${c.fuel}</p>
+              </div>
+              <div class="text-left">
+                <p class="font-heading font-bold text-yellow-500 text-lg">$${c.price.toLocaleString()}</p>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <button onclick="quizStep=0;quizAnswers={};renderQuiz()" class="w-full mt-6 py-3 bg-slate-100 dark:bg-slate-800 rounded-xl font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition">${t('retakeQuiz')}</button>
+    </div>
+  `;
+}
+
+// ==================== CARS GRID ====================
+function renderCars() {
+  const grid = document.getElementById('cars-grid');
+  const noMsg = document.getElementById('no-cars');
+  const search = document.getElementById('search-input').value.toLowerCase();
+  
+  let filtered = CARS.filter(c => {
+    if (currentFilter !== 'all' && c.type !== currentFilter) return false;
+    if (currentPrice === 'low' && c.price >= 25000) return false;
+    if (currentPrice === 'mid' && (c.price < 25000 || c.price > 60000)) return false;
+    if (currentPrice === 'high' && c.price <= 60000) return false;
+    if (search && !c.brand.toLowerCase().includes(search) && !c.name.toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    noMsg.classList.remove('hidden');
+    return;
+  }
+  noMsg.classList.add('hidden');
+
+  const ratingMap = {};
+  allData.filter(d => d.type === 'rating').forEach(d => {
+    if (!ratingMap[d.car_id]) ratingMap[d.car_id] = [];
+    ratingMap[d.car_id].push(d.rating);
+  });
+
+  grid.innerHTML = filtered.map(c => {
+    const ratings = ratingMap[c.id] || [];
+    const avg = ratings.length ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : null;
+    const isFav = favorites.has(c.id);
+    return `
+    <div class="car-card bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
+      <div class="relative h-36 flex items-center justify-center text-6xl" style="background:linear-gradient(135deg, ${c.color}22, ${c.color}44)">
+        ${c.emoji}
+        <button onclick="toggleFavorite(event, '${c.id}')" class="heart-btn absolute top-3 right-3 ${isFav ? 'favorited' : ''} text-2xl transition" title="${currentLang === 'ar' ? 'أضف للمفضلات' : 'Add to favorites'}">
+          ${isFav ? '❤️' : '🤍'}
+        </button>
+      </div>
+      <div class="p-4 cursor-pointer" onclick="openModal('${c.id}')">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500">${c.type}</span>
+          ${avg ? `<span class="text-xs text-yellow-500 font-bold">⭐ ${avg}</span>` : ''}
+        </div>
+        <h3 class="font-bold text-lg">${c.brand} ${c.name}</h3>
+        <p class="text-xs text-slate-400 mb-3">${c.year} • ${c.hp} ${currentLang === 'ar' ? 'حصان' : 'HP'} • ${c.fuel}</p>
+        <div class="flex items-center justify-between">
+          <span class="font-heading font-bold text-yellow-500">$${c.price.toLocaleString()}</span>
+          <span class="text-xs text-slate-400">${c.seats} ${currentLang === 'ar' ? 'مقاعد' : 'seats'}</span>
+        </div>
+      </div>
+    </div>
+  `}).join('');
+}
+
+function toggleFavorite(event, carId) {
+  event.stopPropagation();
+  if (favorites.has(carId)) {
+    favorites.delete(carId);
+  } else {
+    favorites.add(carId);
+  }
+  renderCars();
+}
+
+function filterCars(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.toggle('bg-yellow-500', b.dataset.filter === f);
+    b.classList.toggle('text-slate-900', b.dataset.filter === f);
+    b.classList.toggle('bg-slate-100', b.dataset.filter !== f);
+    b.classList.toggle('dark:bg-slate-800', b.dataset.filter !== f);
+  });
+  renderCars();
+}
+
+function filterPrice(p) {
+  currentPrice = p;
+  document.querySelectorAll('.price-btn').forEach(b => {
+    b.classList.toggle('bg-yellow-500', b.dataset.price === p);
+    b.classList.toggle('text-slate-900', b.dataset.price === p);
+    b.classList.toggle('bg-slate-100', b.dataset.price !== p);
+    b.classList.toggle('dark:bg-slate-800', b.dataset.price !== p);
+  });
+  renderCars();
+}
+
+// ==================== MODAL ====================
+function openModal(id) {
+  const car = CARS.find(c => c.id === id);
+  if (!car) return;
+  
+  const ratings = allData.filter(d => d.type === 'rating' && d.car_id === id);
+  const avg = ratings.length ? (ratings.reduce((a, b) => a + b.rating, 0) / ratings.length).toFixed(1) : t('noMatch');
+  
+  const mc = document.getElementById('modal-content');
+  mc.innerHTML = `
+    <div class="text-center pt-4">
+      <div class="w-24 h-24 rounded-full mx-auto flex items-center justify-center text-5xl mb-4" style="background:linear-gradient(135deg, ${car.color}33, ${car.color}66)">
+        ${car.emoji}
+      </div>
+      <h3 class="font-heading font-bold text-2xl mb-1">${car.brand} ${car.name}</h3>
+      <p class="text-slate-400 mb-4">${car.year} • ${car.type}</p>
+      <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-3 text-center">
+          <p class="text-xs text-slate-400">${t('price')}</p>
+          <p class="font-bold text-yellow-500">$${car.price.toLocaleString()}</p>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-3 text-center">
+          <p class="text-xs text-slate-400">${t('power')}</p>
+          <p class="font-bold">${car.hp} ${currentLang === 'ar' ? 'حصان' : 'HP'}</p>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-3 text-center">
+          <p class="text-xs text-slate-400">${t('rating')}</p>
+          <p class="font-bold text-yellow-500">⭐ ${avg}</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-2 mb-6 text-sm">
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-2"><span class="text-slate-400">${t('fuel')}</span> ${car.fuel}</div>
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-2"><span class="text-slate-400">${t('seats')}</span> ${car.seats}</div>
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-2"><span class="text-slate-400">${t('use')}</span> ${car.use}</div>
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-2"><span class="text-slate-400">${t('type')}</span> ${car.type}</div>
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-2"><span class="text-slate-400">${t('year')}</span> ${car.year}</div>
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-2"><span class="text-slate-400">${t('hp')}</span> ${car.hp}</div>
+      </div>
+      <div class="mb-6 bg-slate-50 dark:bg-slate-800 rounded-xl p-4">
+        <h4 class="font-bold mb-3 text-right text-sm">${t('fullDetails')}</h4>
+        <div class="grid grid-cols-2 gap-3 text-xs">
+          <div class="flex items-center gap-2"><span class="text-yellow-500">🚗</span> <span class="text-slate-600 dark:text-slate-300">${t('brand')}: <span class="font-bold">${car.brand}</span></span></div>
+          <div class="flex items-center gap-2"><span class="text-yellow-500">💨</span> <span class="text-slate-600 dark:text-slate-300">${t('fuel')}: <span class="font-bold">${car.fuel}</span></span></div>
+          <div class="flex items-center gap-2"><span class="text-yellow-500">⚙️</span> <span class="text-slate-600 dark:text-slate-300">HP: <span class="font-bold">${car.hp}</span></span></div>
+          <div class="flex items-center gap-2"><span class="text-yellow-500">👥</span> <span class="text-slate-600 dark:text-slate-300">${t('seats')}: <span class="font-bold">${car.seats}</span></span></div>
+          <div class="flex items-center gap-2"><span class="text-yellow-500">📅</span> <span class="text-slate-600 dark:text-slate-300">${t('year')}: <span class="font-bold">${car.year}</span></span></div>
+          <div class="flex items-center gap-2"><span class="text-yellow-500">🛣️</span> <span class="text-slate-600 dark:text-slate-300">${t('use')}: <span class="font-bold">${car.use}</span></span></div>
+          <div class="flex items-center gap-2 col-span-2"><span class="text-yellow-500">💰</span> <span class="text-slate-600 dark:text-slate-300">${t('price')}: <span class="font-bold text-yellow-500">$${car.price.toLocaleString()}</span></span></div>
+        </div>
+      </div>
+      <div class="mb-6">
+        <h4 class="font-bold mb-2 text-right">${t('features')}</h4>
+        <div class="flex flex-wrap gap-2">
+          ${car.features.map(f => `<span class="text-xs px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 font-medium">${f}</span>`).join('')}
+        </div>
+      </div>
+      <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
+        <h4 class="font-bold mb-2">${t('rateThisCar')}</h4>
+        <div class="flex justify-center gap-2 mb-3" id="modal-stars">
+          ${[1,2,3,4,5].map(i => `<button onclick="rateCarModal('${car.id}', ${i})" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500 transition"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>`).join('')}
+        </div>
+        <div id="modal-rate-msg" class="text-sm"></div>
+      </div>
+    </div>
+  `;
+  
+  const modal = document.getElementById('car-modal');
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+  lucide.createIcons();
+}
+
+function closeModal() {
+  const modal = document.getElementById('car-modal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+
+document.getElementById('car-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+async function rateCarModal(carId, rating) {
+  const msg = document.getElementById('modal-rate-msg');
+  if (allData.length >= 999) {
+    msg.textContent = '⚠️ ' + (currentLang === 'ar' ? 'تم الوصول للحد الأقصى' : 'Limit reached');
+    msg.className = 'text-sm text-red-500';
+    return;
+  }
+  const stars = document.querySelectorAll('#modal-stars button');
+  stars.forEach((s, i) => {
+    s.style.color = i < rating ? '#eab308' : '';
+  });
+  stars.forEach(s => s.disabled = true);
+  msg.textContent = currentLang === 'ar' ? 'جاري الحفظ...' : 'Saving...';
+  msg.className = 'text-sm text-slate-400';
+  
+  const result = await window.dataSdk.create({
+    type: 'rating',
+    car_id: carId,
+    rating: rating,
+    comment: '',
+    username: '',
+    created_at: new Date().toISOString()
+  });
+  
+  if (result.isOk) {
+    msg.textContent = t('thanks') + ' ' + '⭐'.repeat(rating);
+    msg.className = 'text-sm text-yellow-500 font-medium';
+  } else {
+    msg.textContent = t('error');
+    msg.className = 'text-sm text-red-500';
+    stars.forEach(s => s.disabled = false);
+  }
+}
+
+// ==================== COMMENTS ====================
+function setCommentRating(r) {
+  commentRating = r;
+  const stars = document.querySelectorAll('#comment-stars button');
+  stars.forEach((s, i) => {
+    s.style.color = i < r ? '#eab308' : '';
+  });
+}
+
+async function submitComment() {
+  const name = document.getElementById('comment-name').value.trim();
+  const text = document.getElementById('comment-text').value.trim();
+  const msg = document.getElementById('comment-msg');
+  const btn = document.getElementById('submit-comment-btn');
+  
+  if (!name || !text) {
+    msg.textContent = t('fillForm');
+    msg.className = 'text-center text-sm py-2 rounded-lg text-red-500 bg-red-50 dark:bg-red-900/20';
+    msg.classList.remove('hidden');
+    return;
+  }
+  if (commentRating === 0) {
+    msg.textContent = t('selectRating');
+    msg.className = 'text-center text-sm py-2 rounded-lg text-red-500 bg-red-50 dark:bg-red-900/20';
+    msg.classList.remove('hidden');
+    return;
+  }
+  if (allData.length >= 999) {
+    msg.textContent = t('limitReached');
+    msg.className = 'text-center text-sm py-2 rounded-lg text-red-500 bg-red-50 dark:bg-red-900/20';
+    msg.classList.remove('hidden');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = t('saving');
+  
+  const result = await window.dataSdk.create({
+    type: 'comment',
+    car_id: '',
+    rating: commentRating,
+    comment: text,
+    username: name,
+    created_at: new Date().toISOString()
+  });
+
+  if (result.isOk) {
+    msg.textContent = t('success');
+    msg.className = 'text-center text-sm py-2 rounded-lg text-green-600 bg-green-50 dark:bg-green-900/20';
+    msg.classList.remove('hidden');
+    document.getElementById('comment-name').value = '';
+    document.getElementById('comment-text').value = '';
+    commentRating = 0;
+    document.querySelectorAll('#comment-stars button').forEach(s => s.style.color = '');
+  } else {
+    msg.textContent = t('error');
+    msg.className = 'text-center text-sm py-2 rounded-lg text-red-500 bg-red-50 dark:bg-red-900/20';
+    msg.classList.remove('hidden');
+  }
+  btn.disabled = false;
+  btn.textContent = t('submitBtn');
+}
+
+function renderComments() {
+  const list = document.getElementById('comments-list');
+  const noComments = document.getElementById('no-comments');
+  const comments = allData.filter(d => d.type === 'comment').sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  
+  if (comments.length === 0) {
+    list.innerHTML = '';
+    list.appendChild(noComments);
+    noComments.classList.remove('hidden');
+    return;
+  }
+  noComments.classList.add('hidden');
+  
+  const existingIds = new Map([...list.children].filter(el => el.dataset.id).map(el => [el.dataset.id, el]));
+  const currentIds = new Set(comments.map(c => c.__backendId));
+  
+  existingIds.forEach((el, id) => { if (!currentIds.has(id)) el.remove(); });
+  
+  comments.forEach((c, i) => {
+    const id = c.__backendId;
+    if (existingIds.has(id)) return;
+    const div = document.createElement('div');
+    div.dataset.id = id;
+    div.className = 'bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 fade-in';
+    div.style.animationDelay = `${i * 0.05}s`;
+    const date = new Date(c.created_at);
+    const dateStr = date.toLocaleDateString(currentLang, { year:'numeric', month:'short', day:'numeric' });
+    div.innerHTML = `
+      <div class="flex items-start justify-between mb-2">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-500 font-bold">${(c.username || '?')[0]}</div>
+          <div>
+            <p class="font-bold">${c.username || currentLang === 'ar' ? 'مجهول' : 'Anonymous'}</p>
+            <p class="text-xs text-slate-400">${dateStr}</p>
+          </div>
+        </div>
+        <div class="text-yellow-500 text-sm">${'⭐'.repeat(c.rating || 0)}</div>
+      </div>
+      <p class="text-slate-600 dark:text-slate-300 leading-relaxed">${c.comment}</p>
+    `;
+    list.appendChild(div);
+  });
+}
+
+// ==================== DATA SDK ====================
+const dataHandler = {
+  onDataChanged(data) {
+    allData = data;
+    renderCars();
+    renderComments();
+  }
+};
+
+// ==================== ELEMENT SDK ====================
+const defaultConfig = {
+  site_title: 'CAR MATCH',
+  hero_subtitle: 'Find your perfect car',
+  quiz_heading: 'Let\'s find your match',
+  background_color: '#f8fafc',
+  surface_color: '#ffffff',
+  text_color: '#1e293b',
+  primary_color: '#eab308',
+  secondary_color: '#64748b',
+  font_family: 'Tajawal',
+  font_size: 16
+};
+
+async function applyConfig(config) {
+  const c = { ...defaultConfig, ...config };
+  document.getElementById('nav-title').textContent = c.site_title;
+  document.getElementById('hero-title').textContent = c.site_title;
+  document.getElementById('hero-subtitle').textContent = c.hero_subtitle;
+  document.getElementById('quiz-heading').textContent = c.quiz_heading;
+  
+  document.body.style.fontFamily = `${c.font_family}, Tajawal, sans-serif`;
+  document.body.style.fontSize = `${c.font_size}px`;
+}
+
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange: applyConfig,
+  mapToCapabilities: (config) => ({
+    recolorables: [
+      { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+      { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+      { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+      { get: () => config.primary_color || defaultConfig.primary_color, set: (v) => { config.primary_color = v; window.elementSdk.setConfig({ primary_color: v }); } },
+      { get: () => config.secondary_color || defaultConfig.secondary_color, set: (v) => { config.secondary_color = v; window.elementSdk.setConfig({ secondary_color: v }); } },
+    ],
+    borderables: [],
+    fontEditable: { get: () => config.font_family || defaultConfig.font_family, set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); } },
+    fontSizeable: { get: () => config.font_size || defaultConfig.font_size, set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); } },
+  }),
+  mapToEditPanelValues: (config) => new Map([
+    ['site_title', config.site_title || defaultConfig.site_title],
+    ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+    ['quiz_heading', config.quiz_heading || defaultConfig.quiz_heading],
+  ])
+});
+
+// ==================== INIT ====================
+(async () => {
+  const initResult = await window.dataSdk.init(dataHandler);
+  if (!initResult.isOk) console.error('Data SDK init failed');
+  updateLanguageUI();
+  renderQuiz();
+  renderCars();
+  lucide.createIcons();
+})();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9decfba53624bd78',t:'MTc3MzkyODYxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
