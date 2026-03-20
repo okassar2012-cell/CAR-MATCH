@@ -49,17 +49,18 @@ html, body { height: 100%; margin: 0; }
   <style>body { box-sizing: border-box; }</style>
  </head>
  <body class="h-full bg-slate-50 dark:bg-slate-950 font-body text-slate-800 dark:text-slate-200 overflow-auto">
-  <div id="app" class="w-full min-h-full"><!-- Nav -->
+  <div id="app" class="w-full min-h-full">
+   <!-- Nav -->
    <nav id="navbar" class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
      <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-xl bg-yellow-500 flex items-center justify-center">
-       <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /><path d="M5 17H3v-4l2-5h9l4 5h3v4h-2" /><path d="M5 12h14" />
+       <svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="17" r="2" /><circle cx="17" cy="17" r="2" /><path d="M5 17H3v-4l2-5h9l4 5h3v4h-2" /><path d="M5 12h14" />
        </svg>
       </div><span id="nav-title" class="font-heading font-800 text-xl tracking-wider text-slate-900 dark:text-white">CAR MATCH</span>
      </div>
-     <div class="flex items-center gap-2"><button onclick="scrollToSection('quiz-section')" class="hidden sm:block px-4 py-2 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" id="nav-quiz">الاختبار</button> <button onclick="scrollToSection('cars-section')" class="hidden sm:block px-4 py-2 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" id="nav-cars">السيارات</button> <button onclick="scrollToSection('comments-section')" class="hidden sm:block px-4 py-2 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" id="nav-comments">التعليقات</button> <select id="lang-toggle" onchange="toggleLang(this.value)" class="px-3 py-2 text-sm font-medium rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition border-0 cursor-pointer"> <option value="ar">العربية</option> <option value="en">English</option> </select> <button id="dark-toggle" onclick="toggleDark()" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"> <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i> <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i> </button>
+     <div class="flex items-center gap-2">
+      <button onclick="scrollToSection('quiz-section')" class="hidden sm:block px-4 py-2 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" id="nav-quiz">الاختبار</button> <button onclick="scrollToSection('cars-section')" class="hidden sm:block px-4 py-2 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition" id="nav-cars">السيارات</button> <select id="lang-toggle" onchange="toggleLang(this.value)" class="px-3 py-2 text-sm font-medium rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition border-0 cursor-pointer"> <option value="ar">العربية</option> <option value="en">English</option> </select> <button id="dark-toggle" onclick="toggleDark()" class="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition"> <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i> <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i> </button>
      </div>
     </div>
    </nav><!-- Hero -->
@@ -74,7 +75,8 @@ html, body { height: 100%; margin: 0; }
     <div class="max-w-3xl mx-auto">
      <h2 id="quiz-heading" class="font-heading font-700 text-3xl text-center mb-2">خلينا نلاقيلك سيارتك</h2>
      <p class="text-center text-slate-500 dark:text-slate-400 mb-10" id="quiz-desc">أجب على الأسئلة التالية وسنختار لك أفضل سيارة</p>
-     <div id="quiz-container"><!-- Quiz renders here -->
+     <div id="quiz-container">
+      <!-- Quiz renders here -->
      </div>
      <div id="quiz-result" class="hidden"></div>
     </div>
@@ -82,40 +84,28 @@ html, body { height: 100%; margin: 0; }
    <section id="cars-section" class="py-16 px-4 bg-white dark:bg-slate-900">
     <div class="max-w-7xl mx-auto">
      <h2 class="font-heading font-700 text-3xl text-center mb-6" id="cars-heading">استكشف جميع السيارات</h2><!-- Search Bar -->
-     <div class="mb-8 flex justify-center"><input id="search-input" type="text" placeholder="ابحث عن سيارة..." oninput="filterCars(currentFilter)" class="w-full sm:w-96 px-5 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition">
+     <div class="mb-8 flex justify-center">
+      <input id="search-input" type="text" placeholder="ابحث عن سيارة..." oninput="filterCars(currentFilter)" class="w-full sm:w-96 px-5 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition">
      </div><!-- Filters -->
-     <div class="flex flex-wrap gap-3 justify-center mb-10"><button onclick="filterCars('all')" class="filter-btn active px-5 py-2.5 rounded-xl text-sm font-medium bg-yellow-500 text-slate-900 transition" data-filter="all" id="filter-all">الكل</button> <button onclick="filterCars('اقتصادية')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="اقتصادية" id="filter-economy">اقتصادية</button> <button onclick="filterCars('سيدان')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="سيدان" id="filter-sedan">سيدان</button> <button onclick="filterCars('رياضية')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="رياضية" id="filter-sports">رياضية</button> <button onclick="filterCars('SUV')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="SUV" id="filter-suv">SUV</button> <button onclick="filterCars('فاخرة')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="فاخرة" id="filter-luxury">فاخرة</button> <button onclick="filterCars('عائلية')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="عائلية" id="filter-family">عائلية</button> <button onclick="filterCars('بيك أب')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="بيك أب" id="filter-pickup">بيك أب</button>
+     <div class="flex flex-wrap gap-3 justify-center mb-10">
+      <button onclick="filterCars('all')" class="filter-btn active px-5 py-2.5 rounded-xl text-sm font-medium bg-yellow-500 text-slate-900 transition" data-filter="all" id="filter-all">الكل</button> <button onclick="filterCars('اقتصادية')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="اقتصادية" id="filter-economy">اقتصادية</button> <button onclick="filterCars('سيدان')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="سيدان" id="filter-sedan">سيدان</button> <button onclick="filterCars('رياضية')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="رياضية" id="filter-sports">رياضية</button> <button onclick="filterCars('SUV')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="SUV" id="filter-suv">SUV</button> <button onclick="filterCars('فاخرة')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="فاخرة" id="filter-luxury">فاخرة</button> <button onclick="filterCars('عائلية')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="عائلية" id="filter-family">عائلية</button> <button onclick="filterCars('بيك أب')" class="filter-btn px-5 py-2.5 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 hover:bg-yellow-500 hover:text-slate-900 transition" data-filter="بيك أب" id="filter-pickup">بيك أب</button>
      </div><!-- Price Range -->
-     <div class="flex flex-wrap gap-3 justify-center mb-10"><span class="text-sm text-slate-500 self-center" id="budget-label">الميزانية:</span> <button onclick="filterPrice('all')" class="price-btn active px-4 py-2 rounded-lg text-xs font-medium bg-yellow-500 text-slate-900 transition" data-price="all" id="price-all">الكل</button> <button onclick="filterPrice('low')" class="price-btn px-4 py-2 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 transition" data-price="low" id="price-low">أقل من $25K</button> <button onclick="filterPrice('mid')" class="price-btn px-4 py-2 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 transition" data-price="mid" id="price-mid">$25K - $60K</button> <button onclick="filterPrice('high')" class="price-btn px-4 py-2 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 transition" data-price="high" id="price-high">أكثر من $60K</button>
+     <div class="flex flex-wrap gap-3 justify-center mb-10">
+      <span class="text-sm text-slate-500 self-center" id="budget-label">الميزانية:</span> <button onclick="filterPrice('all')" class="price-btn active px-4 py-2 rounded-lg text-xs font-medium bg-yellow-500 text-slate-900 transition" data-price="all" id="price-all">الكل</button> <button onclick="filterPrice('low')" class="price-btn px-4 py-2 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 transition" data-price="low" id="price-low">أقل من $25K</button> <button onclick="filterPrice('mid')" class="price-btn px-4 py-2 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 transition" data-price="mid" id="price-mid">$25K - $60K</button> <button onclick="filterPrice('high')" class="price-btn px-4 py-2 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 transition" data-price="high" id="price-high">أكثر من $60K</button>
      </div>
-     <div id="cars-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"><!-- Cars render here -->
+     <div id="cars-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- Cars render here -->
      </div>
      <p id="no-cars" class="hidden text-center text-slate-400 py-12 text-lg">لا توجد سيارات تطابق الفلتر المحدد</p>
     </div>
-   </section><!-- Car Detail Modal -->
-   <div id="car-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full max-h-[90%] overflow-auto p-6 relative"><button onclick="closeModal()" class="absolute top-4 left-4 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-red-100 dark:hover:bg-red-900 transition"> <i data-lucide="x" class="w-4 h-4"></i> </button>
-     <div id="modal-content"></div>
-    </div>
-   </div><!-- Comments Section -->
-   <section id="comments-section" class="py-16 px-4">
-    <div class="max-w-3xl mx-auto">
-     <h2 class="font-heading font-700 text-3xl text-center mb-10" id="comments-heading">التعليقات والتقييمات</h2><!-- Add Comment -->
-     <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 mb-8 border border-slate-200 dark:border-slate-800">
-      <h3 class="font-bold text-lg mb-4" id="add-comment-title">أضف تعليقك</h3>
-      <div class="space-y-4"><input id="comment-name" type="text" placeholder="اسمك" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition" maxlength="50"> <textarea id="comment-text" placeholder="اكتب تعليقك هنا..." rows="3" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition resize-none" maxlength="500"></textarea>
-       <div class="flex items-center gap-2"><span class="text-sm text-slate-500" id="rating-label">تقييمك:</span>
-        <div id="comment-stars" class="flex gap-1"><button onclick="setCommentRating(1)" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500"><i data-lucide="star" class="w-6 h-6"></i></button> <button onclick="setCommentRating(2)" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500"><i data-lucide="star" class="w-6 h-6"></i></button> <button onclick="setCommentRating(3)" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500"><i data-lucide="star" class="w-6 h-6"></i></button> <button onclick="setCommentRating(4)" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500"><i data-lucide="star" class="w-6 h-6"></i></button> <button onclick="setCommentRating(5)" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500"><i data-lucide="star" class="w-6 h-6"></i></button>
-        </div>
-       </div><button id="submit-comment-btn" onclick="submitComment()" class="w-full py-3 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold rounded-xl transition"> إرسال التعليق </button>
-       <div id="comment-msg" class="hidden text-center text-sm py-2 rounded-lg"></div>
-      </div>
-     </div><!-- Comments List -->
-     <div id="comments-list" class="space-y-4">
-      <p id="no-comments" class="text-center text-slate-400 py-8">لا توجد تعليقات بعد. كن أول من يعلق!</p>
+   </section><!-- Modal -->
+   <div id="car-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-2xl w-full my-8 relative"><button onclick="closeModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition"> <i data-lucide="x" class="w-5 h-5"></i> </button>
+     <div id="modal-content" class="p-6">
+      <!-- Content renders here -->
      </div>
     </div>
-   </section><!-- Footer -->
+   </div><!-- Footer -->
    <footer class="py-8 px-4 bg-slate-900 dark:bg-slate-950 text-center">
     <p class="text-slate-400 text-sm">CAR MATCH © 2025 — اكتشف سيارتك المثالية</p>
    </footer>
@@ -193,6 +183,7 @@ const translations = {
     success: '✅ تم إرسال تعليقك بنجاح!',
     noFavorites: 'لا توجد مفضلات بعد',
     favorites: 'المفضلات',
+    favoritesHeading: '❤️ المفضلات',
     savingFav: 'جاري الحفظ...',
   },
   en: {
@@ -264,6 +255,7 @@ const translations = {
     success: '✅ Comment submitted successfully!',
     noFavorites: 'No favorites yet',
     favorites: 'Favorites',
+    favoritesHeading: '❤️ Favorites',
     savingFav: 'Saving...',
   }
 };
@@ -282,13 +274,11 @@ function toggleLang(lang) {
   renderQuiz();
   renderCars();
   renderComments();
-  lucide.createIcons();
 }
 
 function updateLanguageUI() {
   document.getElementById('nav-quiz').textContent = t('quiz');
   document.getElementById('nav-cars').textContent = t('cars');
-  document.getElementById('nav-comments').textContent = t('comments');
   document.getElementById('btn-start-quiz').textContent = t('startQuiz');
   document.getElementById('quiz-desc').textContent = t('quizDescShort');
   document.getElementById('quiz-heading').textContent = t('quizHeading');
@@ -307,10 +297,6 @@ function updateLanguageUI() {
   document.getElementById('price-low').textContent = t('priceLow');
   document.getElementById('price-mid').textContent = t('priceMid');
   document.getElementById('price-high').textContent = t('priceHigh');
-  document.getElementById('comments-heading').textContent = t('commentsHeading');
-  document.getElementById('add-comment-title').textContent = t('addCommentTitle');
-  document.getElementById('rating-label').textContent = t('ratingLabel');
-  document.getElementById('submit-comment-btn').textContent = t('submitBtn');
 }
 
 // ==================== CAR DATABASE ====================
@@ -321,12 +307,17 @@ const CARS = [
   { id:"kia-sportage", brand:"كيا", name:"Sportage", type:"SUV", price:32000, fuel:"بنزين", year:2024, hp:187, seats:5, use:"سفر", emoji:"🚙", color:"#059669", features:["4WD","Panoramic display","Spacious","Modern tech"] },
   { id:"kia-carnival", brand:"كيا", name:"Carnival", type:"عائلية", price:38000, fuel:"بنزين", year:2024, hp:290, seats:7, use:"سفر", emoji:"🚐", color:"#7c3aed", features:["7 seats","Very spacious","Comfortable","Rear entertainment"] },
   { id:"kia-stinger", brand:"كيا", name:"Stinger", type:"رياضية", price:52000, fuel:"بنزين", year:2024, hp:368, seats:5, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["V6 engine","Sports design","High speed","Powerful"] },
+  { id:"kia-telluride", brand:"كيا", name:"Telluride", type:"SUV", price:45000, fuel:"بنزين", year:2024, hp:277, seats:7, use:"سفر", emoji:"🚙", color:"#1e1b4b", features:["3-row SUV","Luxury feel","Spacious","Tech-packed"] },
+  { id:"kia-k5", brand:"كيا", name:"K5", type:"سيدان", price:25000, fuel:"بنزين", year:2024, hp:180, seats:5, use:"مدينة", emoji:"🚗", color:"#7f1d1d", features:["Sporty design","Good value","Comfortable","Reliable"] },
+  { id:"kia-niro", brand:"كيا", name:"Niro", type:"SUV", price:28000, fuel:"هجين", year:2024, hp:139, seats:5, use:"سفر", emoji:"🚙", color:"#15803d", features:["Hybrid","Efficient","Spacious","Affordable"] },
   // Hyundai
   { id:"hyundai-accent", brand:"هيونداي", name:"Accent", type:"اقتصادية", price:17000, fuel:"بنزين", year:2024, hp:120, seats:5, use:"مدينة", emoji:"🚗", color:"#0891b2", features:["Economic","Practical","Reliable","Low maintenance"] },
   { id:"hyundai-elantra", brand:"هيونداي", name:"Elantra", type:"سيدان", price:24000, fuel:"بنزين", year:2024, hp:147, seats:5, use:"مدينة", emoji:"🚙", color:"#4f46e5", features:["Bold design","Smart tech","Comfortable","Advanced safety"] },
   { id:"hyundai-tucson", brand:"هيونداي", name:"Tucson", type:"SUV", price:30000, fuel:"بنزين", year:2024, hp:187, seats:5, use:"سفر", emoji:"🚙", color:"#15803d", features:["Unique design","4WD","Large display","Wide space"] },
   { id:"hyundai-palisade", brand:"هيونداي", name:"Palisade", type:"SUV", price:50000, fuel:"بنزين", year:2024, hp:291, seats:7, use:"سفر", emoji:"🚙", color:"#1e40af", features:["Luxury","7 seats","Very comfortable","Advanced tech"] },
   { id:"hyundai-sonata", brand:"هيونداي", name:"Sonata", type:"سيدان", price:28000, fuel:"بنزين", year:2024, hp:191, seats:5, use:"مدينة", emoji:"🚗", color:"#9333ea", features:["Elegant design","Powerful engine","High comfort","Modern tech"] },
+  { id:"hyundai-ioniq5", brand:"هيونداي", name:"Ioniq 5", type:"رياضية", price:48000, fuel:"كهربائية", year:2024, hp:320, seats:5, use:"سفر", emoji:"⚡", color:"#0891b2", features:["Fast charging","Electric","Modern design","Sporty"] },
+  { id:"hyundai-venue", brand:"هيونداي", name:"Venue", type:"اقتصادية", price:16000, fuel:"بنزين", year:2024, hp:121, seats:5, use:"مدينة", emoji:"🚗", color:"#c4161c", features:["Sub-compact","Affordable","Fuel efficient","Durable"] },
   // Toyota
   { id:"toyota-yaris", brand:"تويوتا", name:"Yaris", type:"اقتصادية", price:18000, fuel:"بنزين", year:2024, hp:107, seats:5, use:"مدينة", emoji:"🚗", color:"#f59e0b", features:["Very reliable","Economic","Durable","Parts available"] },
   { id:"toyota-corolla", brand:"تويوتا", name:"Corolla", type:"سيدان", price:23000, fuel:"بنزين", year:2024, hp:169, seats:5, use:"مدينة", emoji:"🚙", color:"#2563eb", features:["Best seller","Reliable","Practical","Economic"] },
@@ -335,6 +326,9 @@ const CARS = [
   { id:"toyota-landcruiser", brand:"تويوتا", name:"Land Cruiser", type:"SUV", price:88000, fuel:"بنزين", year:2024, hp:409, seats:7, use:"سفر", emoji:"🚙", color:"#a16207", features:["Desert King","Legendary durability","Luxury","4WD"] },
   { id:"toyota-hilux", brand:"تويوتا", name:"Hilux", type:"بيك أب", price:35000, fuel:"ديزل", year:2024, hp:204, seats:5, use:"سفر", emoji:"🛻", color:"#78350f", features:["Durable","Practical","4WD","High towing"] },
   { id:"toyota-supra", brand:"تويوتا", name:"Supra", type:"رياضية", price:56000, fuel:"بنزين", year:2024, hp:382, seats:2, use:"مدينة", emoji:"🏎️", color:"#ef4444", features:["BMW engine","Super speed","Iconic design","Sports performance"] },
+  { id:"toyota-highlander", brand:"تويوتا", name:"Highlander", type:"عائلية", price:40000, fuel:"بنزين", year:2024, hp:295, seats:8, use:"سفر", emoji:"🚐", color:"#6d28d9", features:["3-row seating","Family-friendly","Spacious","Reliable"] },
+  { id:"toyota-bz4x", brand:"تويوتا", name:"BZ4X", type:"SUV", price:44000, fuel:"كهربائية", year:2024, hp:228, seats:5, use:"سفر", emoji:"⚡", color:"#0891b2", features:["Electric","4WD","Modern","Eco-friendly"] },
+  { id:"toyota-gr86", brand:"تويوتا", name:"GR86", type:"رياضية", price:32000, fuel:"بنزين", year:2024, hp:228, seats:2, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["Sports car","Lightweight","Fun to drive","Affordable"] },
   // Mercedes
   { id:"merc-a", brand:"مرسيدس", name:"A-Class", type:"سيدان", price:38000, fuel:"بنزين", year:2024, hp:188, seats:5, use:"مدينة", emoji:"🚗", color:"#374151", features:["Compact luxury","MBUX tech","Elegant design","High safety"] },
   { id:"merc-c", brand:"مرسيدس", name:"C-Class", type:"فاخرة", price:48000, fuel:"بنزين", year:2024, hp:255, seats:5, use:"مدينة", emoji:"🚗", color:"#1f2937", features:["High luxury","Excellent performance","Advanced tech","Supreme comfort"] },
@@ -342,45 +336,131 @@ const CARS = [
   { id:"merc-s", brand:"مرسيدس", name:"S-Class", type:"فاخرة", price:115000, fuel:"بنزين", year:2024, hp:429, seats:5, use:"سفر", emoji:"🚗", color:"#030712", features:["Finest car","Future tech","Unmatched comfort","Massage seats"] },
   { id:"merc-gle", brand:"مرسيدس", name:"GLE", type:"SUV", price:62000, fuel:"بنزين", year:2024, hp:255, seats:5, use:"سفر", emoji:"🚙", color:"#1e3a5f", features:["Luxury SUV","Spacious","4WD","Air suspension"] },
   { id:"merc-amg-gt", brand:"مرسيدس", name:"AMG GT", type:"رياضية", price:130000, fuel:"بنزين", year:2024, hp:577, seats:2, use:"مدينة", emoji:"🏎️", color:"#991b1b", features:["Extreme performance","V8 engine","Amazing sound","Sports luxury"] },
+  { id:"merc-gla", brand:"مرسيدس", name:"GLA", type:"SUV", price:35000, fuel:"بنزين", year:2024, hp:188, seats:5, use:"سفر", emoji:"🚙", color:"#7c3aed", features:["Compact luxury","Modern styling","4WD","Affordable luxury"] },
+  { id:"merc-eqe", brand:"مرسيدس", name:"EQE", type:"سيدان", price:52000, fuel:"كهربائية", year:2024, hp:329, seats:5, use:"مدينة", emoji:"⚡", color:"#0891b2", features:["Electric","Luxury","Autonomous tech","Silent"] },
   // BMW
   { id:"bmw-3", brand:"بي إم دبليو", name:"3 Series", type:"سيدان", price:45000, fuel:"بنزين", year:2024, hp:255, seats:5, use:"مدينة", emoji:"🚗", color:"#1d4ed8", features:["Driving pleasure","Sports performance","Modern tech","Elegant design"] },
   { id:"bmw-5", brand:"بي إم دبليو", name:"5 Series", type:"فاخرة", price:58000, fuel:"بنزين", year:2024, hp:255, seats:5, use:"سفر", emoji:"🚗", color:"#1e3a5f", features:["Sports luxury","High comfort","Advanced tech","Excellent performance"] },
   { id:"bmw-x5", brand:"بي إم دبليو", name:"X5", type:"SUV", price:65000, fuel:"بنزين", year:2024, hp:335, seats:5, use:"سفر", emoji:"🚙", color:"#0f172a", features:["Sports SUV","4WD","Spacious","Powerful"] },
   { id:"bmw-m4", brand:"بي إم دبليو", name:"M4", type:"رياضية", price:78000, fuel:"بنزين", year:2024, hp:473, seats:4, use:"مدينة", emoji:"🏎️", color:"#15803d", features:["M performance","6-cylinder engine","Drift capable","Sports sound"] },
+  { id:"bmw-i7", brand:"بي إم دبليو", name:"i7", type:"فاخرة", price:95000, fuel:"كهربائية", year:2024, hp:536, seats:5, use:"سفر", emoji:"⚡", color:"#1e1b4b", features:["Electric luxury","Long range","Autonomous","Futuristic"] },
+  { id:"bmw-x3", brand:"بي إم دبليو", name:"X3", type:"SUV", price:50000, fuel:"بنزين", year:2024, hp:255, seats:5, use:"سفر", emoji:"🚙", color:"#059669", features:["Sports SUV","Compact luxury","4WD","Comfortable"] },
   // Nissan
   { id:"nissan-sunny", brand:"نيسان", name:"Sunny", type:"اقتصادية", price:16000, fuel:"بنزين", year:2024, hp:118, seats:5, use:"مدينة", emoji:"🚗", color:"#ca8a04", features:["Economic","Practical","Reliable","Great price"] },
   { id:"nissan-altima", brand:"نيسان", name:"Altima", type:"سيدان", price:27000, fuel:"بنزين", year:2024, hp:188, seats:5, use:"مدينة", emoji:"🚙", color:"#b91c1c", features:["Bold design","Comfortable","Modern tech","Good performance"] },
   { id:"nissan-patrol", brand:"نيسان", name:"Patrol", type:"SUV", price:70000, fuel:"بنزين", year:2024, hp:400, seats:7, use:"سفر", emoji:"🚙", color:"#44403c", features:["Powerful","7 seats","Luxury","Desert legend"] },
   { id:"nissan-gtr", brand:"نيسان", name:"GT-R", type:"رياضية", price:120000, fuel:"بنزين", year:2024, hp:565, seats:4, use:"مدينة", emoji:"🏎️", color:"#6b7280", features:["Godzilla","4WD","Super speed","Japanese icon"] },
+  { id:"nissan-qashqai", brand:"نيسان", name:"Qashqai", type:"SUV", price:29000, fuel:"بنزين", year:2024, hp:147, seats:5, use:"سفر", emoji:"🚙", color:"#0891b2", features:["European style","Practical","Comfortable","Good value"] },
+  { id:"nissan-leaf", brand:"نيسان", name:"Leaf", type:"اقتصادية", price:32000, fuel:"كهربائية", year:2024, hp:147, seats:5, use:"مدينة", emoji:"⚡", color:"#15803d", features:["All-electric","Eco-friendly","Low cost","Quiet"] },
   // Honda
   { id:"honda-civic", brand:"هوندا", name:"Civic", type:"سيدان", price:25000, fuel:"بنزين", year:2024, hp:180, seats:5, use:"مدينة", emoji:"🚗", color:"#0369a1", features:["Sports practical","Reliable","Economic","Fun to drive"] },
   { id:"honda-accord", brand:"هوندا", name:"Accord", type:"سيدان", price:30000, fuel:"هجين", year:2024, hp:204, seats:5, use:"سفر", emoji:"🚗", color:"#4338ca", features:["Hybrid","Spacious","Comfortable","Modern tech"] },
   { id:"honda-crv", brand:"هوندا", name:"CR-V", type:"SUV", price:34000, fuel:"بنزين", year:2024, hp:190, seats:5, use:"سفر", emoji:"🚙", color:"#0e7490", features:["Practical","Spacious","Reliable","Economic"] },
+  { id:"honda-pilot", brand:"هوندا", name:"Pilot", type:"عائلية", price:42000, fuel:"بنزين", year:2024, hp:280, seats:8, use:"سفر", emoji:"🚐", color:"#7c2d12", features:["3-row SUV","Family oriented","Spacious","Powerful"] },
+  { id:"honda-fit", brand:"هوندا", name:"Fit", type:"اقتصادية", price:21000, fuel:"بنزين", year:2024, hp:130, seats:5, use:"مدينة", emoji:"🚗", color:"#dc2626", features:["Compact","Versatile","Fuel efficient","Easy parking"] },
   // Ford
   { id:"ford-f150", brand:"فورد", name:"F-150", type:"بيك أب", price:40000, fuel:"بنزين", year:2024, hp:400, seats:5, use:"سفر", emoji:"🛻", color:"#1e40af", features:["Best seller in US","Huge towing","Durable","Practical"] },
   { id:"ford-mustang", brand:"فورد", name:"Mustang", type:"رياضية", price:55000, fuel:"بنزين", year:2024, hp:480, seats:4, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["American icon","V8 engine","Legendary sound","Classic design"] },
   { id:"ford-explorer", brand:"فورد", name:"Explorer", type:"SUV", price:42000, fuel:"بنزين", year:2024, hp:300, seats:7, use:"سفر", emoji:"🚙", color:"#166534", features:["7 seats","Spacious","4WD","Great family car"] },
+  { id:"ford-edge", brand:"فورد", name:"Edge", type:"SUV", price:38000, fuel:"بنزين", year:2024, hp:250, seats:5, use:"سفر", emoji:"🚙", color:"#1e40af", features:["Mid-size SUV","Practical","Comfortable","Good value"] },
+  { id:"ford-focus", brand:"فورد", name:"Focus", type:"اقتصادية", price:19000, fuel:"بنزين", year:2024, hp:123, seats:5, use:"مدينة", emoji:"🚗", color:"#0369a1", features:["Economical","Practical","Fun handling","Affordable"] },
+  { id:"ford-mustang-mach-e", brand:"فورد", name:"Mustang Mach-E", type:"SUV", price:48000, fuel:"كهربائية", year:2024, hp:346, seats:5, use:"سفر", emoji:"⚡", color:"#dc2626", features:["Electric","Sporty design","Practical","Modern"] },
   // Audi
   { id:"audi-a4", brand:"أودي", name:"A4", type:"فاخرة", price:45000, fuel:"بنزين", year:2024, hp:261, seats:5, use:"مدينة", emoji:"🚗", color:"#1f2937", features:["Quattro 4WD","German luxury","Advanced tech","Great performance"] },
   { id:"audi-q7", brand:"أودي", name:"Q7", type:"SUV", price:60000, fuel:"بنزين", year:2024, hp:261, seats:7, use:"سفر", emoji:"🚙", color:"#374151", features:["7 seats","Luxury","4WD","Wide space"] },
   { id:"audi-rs7", brand:"أودي", name:"RS7", type:"رياضية", price:125000, fuel:"بنزين", year:2024, hp:621, seats:4, use:"مدينة", emoji:"🏎️", color:"#0f172a", features:["Extreme performance","Aggressive design","Sports luxury","Quattro"] },
+  { id:"audi-a6", brand:"أودي", name:"A6", type:"فاخرة", price:55000, fuel:"بنزين", year:2024, hp:335, seats:5, use:"سفر", emoji:"🚗", color:"#1e1b4b", features:["German luxury","Elegant","Advanced tech","Powerful"] },
+  { id:"audi-e-tron", brand:"أودي", name:"e-tron", type:"SUV", price:65000, fuel:"كهربائية", year:2024, hp:355, seats:5, use:"سفر", emoji:"⚡", color:"#0891b2", features:["Electric","Luxury","Spacious","4WD"] },
   // Porsche
   { id:"porsche-911", brand:"بورش", name:"911", type:"رياضية", price:115000, fuel:"بنزين", year:2024, hp:379, seats:4, use:"مدينة", emoji:"🏎️", color:"#eab308", features:["Sports icon","Timeless design","Amazing performance","Rear engine"] },
   { id:"porsche-cayenne", brand:"بورش", name:"Cayenne", type:"SUV", price:75000, fuel:"بنزين", year:2024, hp:348, seats:5, use:"سفر", emoji:"🚙", color:"#1c1917", features:["Sports SUV Luxury","Porsche performance","Luxury","4WD"] },
+  { id:"porsche-taycan", brand:"بورش", name:"Taycan", type:"رياضية", price:95000, fuel:"كهربائية", year:2024, hp:564, seats:4, use:"مدينة", emoji:"⚡", color:"#0369a1", features:["Electric sports car","Extreme performance","Futuristic","Fast charging"] },
   // Lexus
   { id:"lexus-es", brand:"لكزس", name:"ES", type:"فاخرة", price:44000, fuel:"هجين", year:2024, hp:215, seats:5, use:"مدينة", emoji:"🚗", color:"#1e293b", features:["Complete silence","Japanese luxury","Reliable","Hybrid"] },
   { id:"lexus-lx", brand:"لكزس", name:"LX", type:"SUV", price:92000, fuel:"بنزين", year:2024, hp:409, seats:7, use:"سفر", emoji:"🚙", color:"#292524", features:["Desert luxury","7 seats","Land Cruiser base","High durability"] },
+  { id:"lexus-rx", brand:"لكزس", name:"RX", type:"SUV", price:48000, fuel:"هجين", year:2024, hp:308, seats:5, use:"سفر", emoji:"🚙", color:"#4f46e5", features:["Luxury SUV","Hybrid","Smooth ride","Reliable"] },
+  { id:"lexus-is", brand:"لكزس", name:"IS", type:"رياضية", price:40000, fuel:"بنزين", year:2024, hp:241, seats:5, use:"مدينة", emoji:"🚗", color:"#dc2626", features:["Sports sedan","Luxury","Fun to drive","Reliable"] },
   // Chevrolet
   { id:"chevy-tahoe", brand:"شيفروليه", name:"Tahoe", type:"SUV", price:55000, fuel:"بنزين", year:2024, hp:355, seats:7, use:"سفر", emoji:"🚙", color:"#1e3a5f", features:["American","Very spacious","7 seats","Powerful"] },
   { id:"chevy-camaro", brand:"شيفروليه", name:"Camaro", type:"رياضية", price:45000, fuel:"بنزين", year:2024, hp:455, seats:4, use:"مدينة", emoji:"🏎️", color:"#fbbf24", features:["American muscle","V8 engine","Awesome sound","Aggressive design"] },
+  { id:"chevy-silverado", brand:"شيفروليه", name:"Silverado", type:"بيك أب", price:42000, fuel:"بنزين", year:2024, hp:355, seats:5, use:"سفر", emoji:"🛻", color:"#1f2937", features:["Powerful truck","Towing beast","Practical","American"] },
+  { id:"chevy-blazer", brand:"شيفروليه", name:"Blazer", type:"SUV", price:36000, fuel:"بنزين", year:2024, hp:307, seats:5, use:"سفر", emoji:"🚙", color:"#c4161c", features:["Sporty SUV","Modern design","Powerful","Practical"] },
   // Volkswagen
   { id:"vw-golf", brand:"فولكسفاجن", name:"Golf", type:"اقتصادية", price:28000, fuel:"بنزين", year:2024, hp:228, seats:5, use:"مدينة", emoji:"🚗", color:"#1d4ed8", features:["Legendary hatchback","Practical","Fun","German"] },
   { id:"vw-tiguan", brand:"فولكسفاجن", name:"Tiguan", type:"SUV", price:32000, fuel:"بنزين", year:2024, hp:184, seats:5, use:"سفر", emoji:"🚙", color:"#0f766e", features:["Practical","Spacious","Reliable","German"] },
+  { id:"vw-id4", brand:"فولكسفاجن", name:"ID.4", type:"SUV", price:40000, fuel:"كهربائية", year:2024, hp:295, seats:5, use:"سفر", emoji:"⚡", color:"#2563eb", features:["Electric","Practical","Modern design","Long range"] },
+  { id:"vw-jetta", brand:"فولكسفاجن", name:"Jetta", type:"سيدان", price:22000, fuel:"بنزين", year:2024, hp:147, seats:5, use:"مدينة", emoji:"🚗", color:"#7c3aed", features:["Practical sedan","Good value","Reliable","Comfortable"] },
   // Range Rover
   { id:"rr-sport", brand:"رينج روفر", name:"Sport", type:"SUV", price:85000, fuel:"بنزين", year:2024, hp:395, seats:5, use:"سفر", emoji:"🚙", color:"#1c1917", features:["British luxury","Sports performance","Iconic design","Off-road capable"] },
+  { id:"rr-evoque", brand:"رينج روفر", name:"Evoque", type:"SUV", price:50000, fuel:"بنزين", year:2024, hp:246, seats:5, use:"سفر", emoji:"🚙", color:"#ea580c", features:["Stylish","Compact luxury","Modern design","Capable"] },
+  { id:"rr-velar", brand:"رينج روفر", name:"Velar", type:"SUV", price:65000, fuel:"بنزين", year:2024, hp:380, seats:5, use:"سفر", emoji:"🚙", color:"#1f2937", features:["Luxury SUV","Sleek design","Powerful","Elegant"] },
   // Tesla
   { id:"tesla-3", brand:"تسلا", name:"Model 3", type:"سيدان", price:42000, fuel:"كهربائية", year:2024, hp:283, seats:5, use:"مدينة", emoji:"⚡", color:"#dc2626", features:["Electric","Autonomous driving","Huge display","Zero emissions"] },
   { id:"tesla-y", brand:"تسلا", name:"Model Y", type:"SUV", price:50000, fuel:"كهربائية", year:2024, hp:384, seats:5, use:"سفر", emoji:"⚡", color:"#2563eb", features:["Electric","Spacious","Autonomous","Practical"] },
+  { id:"tesla-s", brand:"تسلا", name:"Model S", type:"فاخرة", price:85000, fuel:"كهربائية", year:2024, hp:516, seats:5, use:"سفر", emoji:"⚡", color:"#0f172a", features:["Electric luxury","Performance","Long range","Futuristic"] },
+  { id:"tesla-x", brand:"تسلا", name:"Model X", type:"SUV", price:95000, fuel:"كهربائية", year:2024, hp:500, seats:7, use:"سفر", emoji:"⚡", color:"#1f2937", features:["Electric SUV","7 seats","Falcon doors","Performance"] },
+  // Mazda
+  { id:"mazda-3", brand:"مازدا", name:"Mazda3", type:"سيدان", price:24000, fuel:"بنزين", year:2024, hp:186, seats:5, use:"مدينة", emoji:"🚗", color:"#dc2626", features:["Fun to drive","Stylish","Reliable","Good value"] },
+  { id:"mazda-cx5", brand:"مازدا", name:"CX-5", type:"SUV", price:32000, fuel:"بنزين", year:2024, hp:187, seats:5, use:"سفر", emoji:"🚙", color:"#059669", features:["Japanese quality","Practical","Comfortable","Good warranty"] },
+  { id:"mazda-mx5", brand:"مازدا", name:"MX-5", type:"رياضية", price:30000, fuel:"بنزين", year:2024, hp:181, seats:2, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["Convertible sports","Lightweight","Fun","Affordable"] },
+  // Volvo
+  { id:"volvo-s90", brand:"فولفو", name:"S90", type:"فاخرة", price:62000, fuel:"بنزين", year:2024, hp:295, seats:5, use:"سفر", emoji:"🚗", color:"#1e3a5f", features:["Swedish luxury","Safe","Elegant","Advanced tech"] },
+  { id:"volvo-xc60", brand:"فولفو", name:"XC60", type:"SUV", price:50000, fuel:"بنزين", year:2024, hp:250, seats:5, use:"سفر", emoji:"🚙", color:"#0891b2", features:["Safe SUV","Luxury","Modern design","Scandinavian style"] },
+  { id:"volvo-xc90", brand:"فولفو", name:"XC90", type:"عائلية", price:65000, fuel:"بنزين", year:2024, hp:250, seats:7, use:"سفر", emoji:"🚐", color:"#7c3aed", features:["3-row luxury","Family focused","Safe","Spacious"] },
+  // Genesis
+  { id:"genesis-g70", brand:"جينيسيس", name:"G70", type:"فاخرة", price:45000, fuel:"بنزين", year:2024, hp:255, seats:5, use:"مدينة", emoji:"🚗", color:"#1e1b4b", features:["Korean luxury","Sporty","Great value","Advanced tech"] },
+  { id:"genesis-gv70", brand:"جينيسيس", name:"GV70", type:"SUV", price:52000, fuel:"بنزين", year:2024, hp:314, seats:5, use:"سفر", emoji:"🚙", color:"#0891b2", features:["Luxury SUV","Stylish","Practical","Good warranty"] },
+  // Subaru
+  { id:"subaru-outback", brand:"سوبارو", name:"Outback", type:"عائلية", price:30000, fuel:"بنزين", year:2024, hp:182, seats:5, use:"سفر", emoji:"🚙", color:"#15803d", features:["AWD standard","Off-road capable","Practical","Safe"] },
+  { id:"subaru-wrx", brand:"سوبارو", name:"WRX", type:"رياضية", price:32000, fuel:"بنزين", year:2024, hp:268, seats:5, use:"مدينة", emoji:"🏎️", color:"#1d4ed8", features:["Performance AWD","Turbocharged","Rally heritage","Fun"] },
+  // Hyundai Group (Genesis/Kia)
+  { id:"polestar-3", brand:"بولستار", name:"3", type:"SUV", price:73000, fuel:"كهربائية", year:2024, hp:402, seats:5, use:"سفر", emoji:"⚡", color:"#1f2937", features:["Electric luxury","Scandinavian design","Performance","Futuristic"] },
+  // Rolls Royce
+  { id:"rr-ghost", brand:"رولز رويس", name:"Ghost", type:"فاخرة", price:320000, fuel:"بنزين", year:2024, hp:563, seats:5, use:"سفر", emoji:"👑", color:"#000000", features:["Ultimate luxury","Hand-stitched","Silent cabin","Bespoke interior"] },
+  { id:"rr-phantom", brand:"رولز رويس", name:"Phantom", type:"فاخرة", price:450000, fuel:"بنزين", year:2024, hp:563, seats:5, use:"سفر", emoji:"👑", color:"#1c1917", features:["Most luxurious car","Perfect silence","Celestial headliner","Ultimate comfort"] },
+  { id:"rr-wraith", brand:"رولز رويس", name:"Wraith", type:"رياضية", price:380000, fuel:"بنزين", year:2024, hp:624, seats:4, use:"سفر", emoji:"🏎️", color:"#1f2937", features:["Coupe luxury","High performance","Bold design","Exclusive"] },
+  { id:"rr-cullinan", brand:"رولز رويس", name:"Cullinan", type:"SUV", price:380000, fuel:"بنزين", year:2024, hp:563, seats:5, use:"سفر", emoji:"🚙", color:"#0f172a", features:["Ultra-luxury SUV","All-terrain","Unmatched comfort","Pinnacle of engineering"] },
+  // Bugatti
+  { id:"bugatti-chiron", brand:"بوجاتي", name:"Chiron", type:"رياضية", price:2600000, fuel:"بنزين", year:2024, hp:1500, seats:2, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["Hyper-car","W16 engine","Top speed 290 mph","Engineering marvel"] },
+  { id:"bugatti-bolide", brand:"بوجاتي", name:"Bolide", type:"رياضية", price:5000000, fuel:"بنزين", year:2024, hp:1850, seats:1, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["Race car for road","Extreme performance","Ultra lightweight","Insane speed"] },
+  { id:"bugatti-w16", brand:"بوجاتي", name:"W16 Mistral", type:"رياضية", price:500000, fuel:"بنزين", year:2024, hp:1500, seats:2, use:"سفر", emoji:"🏎️", color:"#1f2937", features:["Open-top hyper-car","W16 legend","Final masterpiece","Breathtaking"] },
+  // Lamborghini
+  { id:"lambo-revuelto", brand:"لامبورجيني", name:"Revuelto", type:"رياضية", price:645000, fuel:"هجين", year:2024, hp:1001, seats:4, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["Hybrid hyper-car","1000+ HP","Italian design","Pure speed"] },
+  { id:"lambo-lfa", brand:"لامبورجيني", name:"LFa", type:"رياضية", price:570000, fuel:"بنزين", year:2024, hp:808, seats:2, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["Limited edition","Lightweight","Aggressive design","Beast mode"] },
+  { id:"lambo-urus", brand:"لامبورجيني", name:"Urus", type:"SUV", price:218000, fuel:"بنزين", year:2024, hp:641, seats:5, use:"سفر", emoji:"🚙", color:"#000000", features:["Super SUV","V12 engine","Aggressive styling","Performance SUV"] },
+  { id:"lambo-huracán", brand:"لامبورجيني", name:"Huracán", type:"رياضية", price:268000, fuel:"بنزين", year:2024, hp:631, seats:2, use:"مدينة", emoji:"🏎️", color:"#fbbf24", features:["Mid-engine sports","Iconic design","Masterpiece","Legendary performance"] },
+  // Ferrari
+  { id:"ferrari-f80", brand:"فيراري", name:"F80", type:"رياضية", price:500000, fuel:"هجين", year:2024, hp:1200, seats:2, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["Hybrid hyper-car","Extreme performance","Limited to 799","Pure Ferrari"] },
+  { id:"ferrari-sf90", brand:"فيراري", name:"SF90 Stradale", type:"رياضية", price:500000, fuel:"هجين", year:2024, hp:986, seats:2, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["Hybrid supercar","4-wheel drive","Performance icon","Stunning design"] },
+  { id:"ferrari-488", brand:"فيراري", name:"488 GTB", type:"رياضية", price:280000, fuel:"بنزين", year:2024, hp:661, seats:2, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["Mid-engine masterpiece","Twin-turbo V8","Italian beauty","Pure speed"] },
+  { id:"ferrari-suv", brand:"فيراري", name:"Purosangue", type:"SUV", price:390000, fuel:"بنزين", year:2024, hp:715, seats:5, use:"سفر", emoji:"🚙", color:"#dc2626", features:["First Ferrari SUV","V12 power","Luxury performance","Game changer"] },
+  // McLaren
+  { id:"mclaren-speedtail", brand:"ماكلارين", name:"Speedtail", type:"رياضية", price:2250000, fuel:"بنزين", year:2024, hp:1070, seats:3, use:"مدينة", emoji:"🏎️", color:"#fbbf24", features:["Hyper-car","Top speed 250 mph","Extreme design","Ultra-rare"] },
+  { id:"mclaren-720s", brand:"ماكلارين", name:"720S", type:"رياضية", price:315000, fuel:"بنزين", year:2024, hp:710, seats:2, use:"مدينة", emoji:"🏎️", color:"#0891b2", features:["Sculpted design","Dihedral doors","Pure power","British engineering"] },
+  { id:"mclaren-artura", brand:"ماكلارين", name:"Artura", type:"رياضية", price:350000, fuel:"هجين", year:2024, hp:671, seats:2, use:"مدينة", emoji:"🏎️", color:"#1f2937", features:["Hybrid supercar","New generation","Carbon fiber","Next level"] },
+  // Bentley
+  { id:"bentley-flying-spur", brand:"بنتلي", name:"Flying Spur", type:"فاخرة", price:225000, fuel:"بنزين", year:2024, hp:626, seats:5, use:"سفر", emoji:"🚗", color:"#1c1917", features:["Luxury sedan","W12 engine","Handcrafted","British elegance"] },
+  { id:"bentley-continental", brand:"بنتلي", name:"Continental GT", type:"رياضية", price:295000, fuel:"بنزين", year:2024, hp:626, seats:4, use:"سفر", emoji:"🏎️", color:"#0f172a", features:["Grand tourer","Luxury sports","Iconic coupe","Performance luxury"] },
+  { id:"bentley-bentayga", brand:"بنتلي", name:"Bentayga", type:"SUV", price:182000, fuel:"بنزين", year:2024, hp:626, seats:5, use:"سفر", emoji:"🚙", color:"#1f2937", features:["Ultra-luxury SUV","W12 power","Prestige","Handcrafted"] },
+  // Corvette (American)
+  { id:"corvette-z06", brand:"كوروفيت", name:"Z06", type:"رياضية", price:108000, fuel:"بنزين", year:2024, hp:670, seats:2, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["American legend","V8 engine","Track performance","Affordable supercar"] },
+  { id:"corvette-stingray", brand:"كوروفيت", name:"Stingray", type:"رياضية", price:68000, fuel:"بنزين", year:2024, hp:495, seats:2, use:"مدينة", emoji:"🏎️", color:"#0f766e", features:["Mid-engine sports","American icon","Great value","Performance car"] },
+  { id:"corvette-e-ray", brand:"كوروفيت", name:"E-Ray", type:"رياضية", price:85000, fuel:"هجين", year:2024, hp:655, seats:2, use:"مدينة", emoji:"⚡", color:"#2563eb", features:["Hybrid Vette","Electric assist","AWD power","Future sports car"] },
+  // American Trucks & SUVs
+  { id:"dodge-ram-trx", brand:"رام", name:"TRX", type:"بيك أب", price:110000, fuel:"بنزين", year:2024, hp:702, seats:5, use:"سفر", emoji:"🛻", color:"#0f172a", features:["Super truck","Supercharged V8","Off-road beast","Extreme towing"] },
+  { id:"gmc-hummer-ev", brand:"GMC", name:"Hummer EV", type:"SUV", price:112000, fuel:"كهربائية", year:2024, hp:1000, seats:5, use:"سفر", emoji:"⚡", color:"#1f2937", features:["Electric beast","11,500 lb-ft torque","Crab walk","Futuristic"] },
+  { id:"cadillac-escalade", brand:"كاديلاك", name:"Escalade", type:"SUV", price:85000, fuel:"بنزين", year:2024, hp:420, seats:8, use:"سفر", emoji:"🚙", color:"#1c1917", features:["American luxury","8 seats","Tech-packed","Full size prestige"] },
+  { id:"lincoln-aviator", brand:"لنكولن", name:"Aviator", type:"SUV", price:55000, fuel:"بنزين", year:2024, hp:400, seats:7, use:"سفر", emoji:"🚙", color:"#1f2937", features:["Luxury SUV","Quiet cabin","Refined","American prestige"] },
+  // Pagani
+  { id:"pagani-huayra", brand:"باغاني", name:"Huayra", type:"رياضية", price:1400000, fuel:"بنزين", year:2024, hp:730, seats:2, use:"مدينة", emoji:"🏎️", color:"#1f2937", features:["Italian hyper-car","Hand-assembled","Art on wheels","Masterpiece"] },
+  { id:"pagani-bc", brand:"باغاني", name:"Imola", type:"رياضية", price:2400000, fuel:"بنزين", year:2024, hp:791, seats:1, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["Track hyper-car","Race focused","Extreme engineering","Ultimate driving"] },
+  // Koenigsegg
+  { id:"koenigsegg-jesko", brand:"كونيجسج", name:"Jesko", type:"رياضية", price:3000000, fuel:"بنزين", year:2024, hp:1600, seats:2, use:"مدينة", emoji:"🏎️", color:"#fbbf24", features:["Hyper-car","300 mph capable","Light-speed transmission","Swedish legend"] },
+  { id:"koenigsegg-cc", brand:"كونيجسج", name:"CC850", type:"رياضية", price:2350000, fuel:"بنزين", year:2024, hp:1340, seats:2, use:"مدينة", emoji:"🏎️", color:"#0891b2", features:["Hyper-car icon","Pure engineering","Manual/Auto combo","Masterwork"] },
+  // Hennessey (American)
+  { id:"hennessey-venom", brand:"هينيسي", name:"Venom F5", type:"رياضية", price:1600000, fuel:"بنزين", year:2024, hp:1817, seats:2, use:"مدينة", emoji:"🏎️", color:"#dc2626", features:["American hyper-car","330 mph capable","Twin-turbo V8","Extreme power"] },
+  // SSC (American)
+  { id:"ssc-tuatara", brand:"SSC", name:"Tuatara", type:"رياضية", price:1350000, fuel:"بنزين", year:2024, hp:1750, seats:2, use:"مدينة", emoji:"🏎️", color:"#0f172a", features:["American hyper-car","Twin-turbo V8","330 mph claim","Record chaser"] },
 ];
 
 // ==================== QUIZ ====================
@@ -416,11 +496,9 @@ const getQuizQuestions = () => [
 
 let quizStep = 0;
 let quizAnswers = {};
-let commentRating = 0;
 let currentFilter = 'all';
 let currentPrice = 'all';
 let allData = [];
-let favorites = new Set();
 
 // ==================== DARK MODE ====================
 function toggleDark() {
@@ -581,14 +659,10 @@ function renderCars() {
   grid.innerHTML = filtered.map(c => {
     const ratings = ratingMap[c.id] || [];
     const avg = ratings.length ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : null;
-    const isFav = favorites.has(c.id);
     return `
     <div class="car-card bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
       <div class="relative h-36 flex items-center justify-center text-6xl" style="background:linear-gradient(135deg, ${c.color}22, ${c.color}44)">
         ${c.emoji}
-        <button onclick="toggleFavorite(event, '${c.id}')" class="heart-btn absolute top-3 right-3 ${isFav ? 'favorited' : ''} text-2xl transition" title="${currentLang === 'ar' ? 'أضف للمفضلات' : 'Add to favorites'}">
-          ${isFav ? '❤️' : '🤍'}
-        </button>
       </div>
       <div class="p-4 cursor-pointer" onclick="openModal('${c.id}')">
         <div class="flex items-center justify-between mb-1">
@@ -604,16 +678,6 @@ function renderCars() {
       </div>
     </div>
   `}).join('');
-}
-
-function toggleFavorite(event, carId) {
-  event.stopPropagation();
-  if (favorites.has(carId)) {
-    favorites.delete(carId);
-  } else {
-    favorites.add(carId);
-  }
-  renderCars();
 }
 
 function filterCars(f) {
@@ -694,15 +758,33 @@ function openModal(id) {
           ${car.features.map(f => `<span class="text-xs px-3 py-1.5 rounded-full bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 font-medium">${f}</span>`).join('')}
         </div>
       </div>
-      <div class="border-t border-slate-200 dark:border-slate-700 pt-4">
-        <h4 class="font-bold mb-2">${t('rateThisCar')}</h4>
-        <div class="flex justify-center gap-2 mb-3" id="modal-stars">
-          ${[1,2,3,4,5].map(i => `<button onclick="rateCarModal('${car.id}', ${i})" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500 transition"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>`).join('')}
+      <div class="border-t border-slate-200 dark:border-slate-700 pt-4 mt-4">
+        <h4 class="font-bold mb-3">${t('rateThisCar')}</h4>
+        
+        <!-- Add Comment Form -->
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 mb-4">
+          <input type="text" id="modal-comment-name" placeholder="${currentLang === 'ar' ? 'اسمك' : 'Your name'}" class="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm mb-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" maxlength="50">
+          <textarea id="modal-comment-text" placeholder="${currentLang === 'ar' ? 'اكتب تعليقك...' : 'Write your comment...'}" class="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm resize-none mb-2 focus:outline-none focus:ring-2 focus:ring-yellow-500" rows="2" maxlength="300"></textarea>
+          <div class="flex justify-between items-center mb-2">
+            <div class="flex gap-1" id="modal-stars">
+              ${[1,2,3,4,5].map(i => `<button type="button" onclick="setModalRating(${i})" class="star-btn text-slate-300 dark:text-slate-600 hover:text-yellow-500 transition"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>`).join('')}
+            </div>
+            <button type="button" onclick="submitCarComment('${car.id}')" class="px-4 py-1.5 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-bold text-sm rounded-lg transition">
+              ${currentLang === 'ar' ? 'إرسال' : 'Send'}
+            </button>
+          </div>
+          <div id="modal-comment-msg" class="text-xs hidden"></div>
         </div>
-        <div id="modal-rate-msg" class="text-sm"></div>
+        
+        <!-- Comments List -->
+        <div id="modal-comments-list" class="space-y-3 max-h-64 overflow-y-auto">
+          <p class="text-center text-xs text-slate-400 py-4">${currentLang === 'ar' ? 'لا توجد تعليقات بعد' : 'No comments yet'}</p>
+        </div>
       </div>
     </div>
   `;
+  
+  loadCarComments(id);
   
   const modal = document.getElementById('car-modal');
   modal.classList.remove('hidden');
@@ -754,9 +836,89 @@ async function rateCarModal(carId, rating) {
   }
 }
 
+let modalRating = 0;
+
+function setModalRating(rating) {
+  modalRating = rating;
+  const stars = document.querySelectorAll('#modal-stars button');
+  stars.forEach((s, i) => {
+    s.style.color = i < rating ? '#eab308' : '';
+  });
+}
+
+async function submitCarComment(carId) {
+  const name = document.getElementById('modal-comment-name').value.trim();
+  const text = document.getElementById('modal-comment-text').value.trim();
+  const msg = document.getElementById('modal-comment-msg');
+  
+  if (!name || !text) {
+    msg.textContent = currentLang === 'ar' ? 'الرجاء إدخال الاسم والتعليق' : 'Please fill in name and comment';
+    msg.className = 'text-xs text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded';
+    msg.classList.remove('hidden');
+    return;
+  }
+  if (modalRating === 0) {
+    msg.textContent = currentLang === 'ar' ? 'الرجاء اختيار تقييم' : 'Please select a rating';
+    msg.className = 'text-xs text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded';
+    msg.classList.remove('hidden');
+    return;
+  }
+  if (allData.length >= 999) {
+    msg.textContent = currentLang === 'ar' ? 'تم الوصول للحد الأقصى' : 'Limit reached';
+    msg.className = 'text-xs text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded';
+    msg.classList.remove('hidden');
+    return;
+  }
+
+  msg.textContent = currentLang === 'ar' ? 'جاري الإرسال...' : 'Sending...';
+  msg.className = 'text-xs text-slate-400 px-2 py-1 rounded';
+  msg.classList.remove('hidden');
+  
+  const result = await window.dataSdk.create({
+    type: 'car_comment',
+    car_id: carId,
+    rating: modalRating,
+    comment: text,
+    username: name,
+    created_at: new Date().toISOString()
+  });
+
+  if (result.isOk) {
+    msg.textContent = currentLang === 'ar' ? '✅ تم الإرسال!' : '✅ Sent!';
+    msg.className = 'text-xs text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded';
+    document.getElementById('modal-comment-name').value = '';
+    document.getElementById('modal-comment-text').value = '';
+    modalRating = 0;
+    document.querySelectorAll('#modal-stars button').forEach(s => s.style.color = '');
+  } else {
+    msg.textContent = t('error');
+    msg.className = 'text-xs text-red-500 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded';
+  }
+}
+
+function loadCarComments(carId) {
+  const list = document.getElementById('modal-comments-list');
+  const comments = allData.filter(d => d.type === 'car_comment' && d.car_id === carId).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  
+  if (comments.length === 0) {
+    list.innerHTML = `<p class="text-center text-xs text-slate-400 py-4">${currentLang === 'ar' ? 'لا توجد تعليقات بعد' : 'No comments yet'}</p>`;
+    return;
+  }
+  
+  list.innerHTML = comments.map(c => `
+    <div class="bg-white dark:bg-slate-700 rounded-lg p-3 text-sm border border-slate-200 dark:border-slate-600">
+      <div class="flex items-center justify-between mb-1">
+        <span class="font-bold text-xs">${c.username}</span>
+        <span class="text-yellow-500 text-xs">${'⭐'.repeat(c.rating || 0)}</span>
+      </div>
+      <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">${c.comment}</p>
+      <p class="text-xs text-slate-400 mt-1">${new Date(c.created_at).toLocaleDateString(currentLang)}</p>
+    </div>
+  `).join('');
+}
+
 // ==================== COMMENTS ====================
 function setCommentRating(r) {
-  commentRating = r;
   const stars = document.querySelectorAll('#comment-stars button');
   stars.forEach((s, i) => {
     s.style.color = i < r ? '#eab308' : '';
@@ -775,7 +937,7 @@ async function submitComment() {
     msg.classList.remove('hidden');
     return;
   }
-  if (commentRating === 0) {
+  if (!currentFilter) {
     msg.textContent = t('selectRating');
     msg.className = 'text-center text-sm py-2 rounded-lg text-red-500 bg-red-50 dark:bg-red-900/20';
     msg.classList.remove('hidden');
@@ -794,7 +956,7 @@ async function submitComment() {
   const result = await window.dataSdk.create({
     type: 'comment',
     car_id: '',
-    rating: commentRating,
+    rating: 0,
     comment: text,
     username: name,
     created_at: new Date().toISOString()
@@ -806,8 +968,6 @@ async function submitComment() {
     msg.classList.remove('hidden');
     document.getElementById('comment-name').value = '';
     document.getElementById('comment-text').value = '';
-    commentRating = 0;
-    document.querySelectorAll('#comment-stars button').forEach(s => s.style.color = '');
   } else {
     msg.textContent = t('error');
     msg.className = 'text-center text-sm py-2 rounded-lg text-red-500 bg-red-50 dark:bg-red-900/20';
@@ -819,16 +979,12 @@ async function submitComment() {
 
 function renderComments() {
   const list = document.getElementById('comments-list');
-  const noComments = document.getElementById('no-comments');
   const comments = allData.filter(d => d.type === 'comment').sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   
   if (comments.length === 0) {
-    list.innerHTML = '';
-    list.appendChild(noComments);
-    noComments.classList.remove('hidden');
+    list.innerHTML = `<p class="text-center text-slate-400 py-12 text-lg">${currentLang === 'ar' ? 'لا توجد تعليقات بعد' : 'No comments yet'}</p>`;
     return;
   }
-  noComments.classList.add('hidden');
   
   const existingIds = new Map([...list.children].filter(el => el.dataset.id).map(el => [el.dataset.id, el]));
   const currentIds = new Set(comments.map(c => c.__backendId));
@@ -849,11 +1005,10 @@ function renderComments() {
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-500 font-bold">${(c.username || '?')[0]}</div>
           <div>
-            <p class="font-bold">${c.username || currentLang === 'ar' ? 'مجهول' : 'Anonymous'}</p>
+            <p class="font-bold">${c.username || (currentLang === 'ar' ? 'مجهول' : 'Anonymous')}</p>
             <p class="text-xs text-slate-400">${dateStr}</p>
           </div>
         </div>
-        <div class="text-yellow-500 text-sm">${'⭐'.repeat(c.rating || 0)}</div>
       </div>
       <p class="text-slate-600 dark:text-slate-300 leading-relaxed">${c.comment}</p>
     `;
@@ -861,12 +1016,15 @@ function renderComments() {
   });
 }
 
+function renderFavorites() {}
+
 // ==================== DATA SDK ====================
-const dataHandler = {
+  const dataHandler = {
   onDataChanged(data) {
     allData = data;
     renderCars();
     renderComments();
+    renderFavorites();
   }
 };
 
@@ -927,5 +1085,5 @@ window.elementSdk.init({
   lucide.createIcons();
 })();
 </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9decfba53624bd78',t:'MTc3MzkyODYxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df2821c85c2794c',t:'MTc3Mzk4NjU0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
